@@ -6,13 +6,15 @@
 
 - **Name**: Amit Kayal
 - **Email Address**: [amitkayal@outlook.com](mailto:amitkayal@outlook.com)
-- **Batch**: Saturday 11.15 A.M
+- **Batch**: Tuesday 6.30 A.M
 
 ## Assignment Solution
 
 
 
 ### What are Channels and Kernels (according to EVA)?
+
+A channel will be semantic in nature and each channel will have semantic information. A set of channel needs to be seen/played together to make sense.
 
 Filter/Kernel is a matrix of some values with defined filter size. Our expectation is that weights (or values) in the convolution filter multiplied with corresponding input image pixels will gives us a value that best represents those image pixels and thus will help us to extract key features from the input image. Filter size is one of the hyper-parameters and our choice varies between higher and smaller values. 
 
