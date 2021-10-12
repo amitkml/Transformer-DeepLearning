@@ -27,6 +27,13 @@
 
 ## Training Log
 
+### Training and Test Evaluation Chart
+
+![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/class-2/Test_result.png?raw=true)
+![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/class-2/Training_result.png?raw=true)
+
+### Log
+
 /usr/local/lib/python3.7/dist-packages/ipykernel_launcher.py:66: UserWarning: Implicit dimension choice for log_softmax has been deprecated. Change the call to include dim=X as an argument.
 /usr/local/lib/python3.7/dist-packages/torch/nn/_reduction.py:42: UserWarning: size_average and reduce args will be deprecated, please use reduction='sum' instead.
   warnings.warn(warning.format(ret))
