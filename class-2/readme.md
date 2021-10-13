@@ -25,6 +25,11 @@
   - must mention what loss function you picked and why!
   - training MUST happen on the GPU
 
+## Model Output showing sum and MNIST number
+
+Model output showing sum and MNIST nunber is being shown here.
+![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/class-2/prediction_output.png?raw=true)
+
 ## Training Log
 
 ### Training and Test Evaluation Chart
