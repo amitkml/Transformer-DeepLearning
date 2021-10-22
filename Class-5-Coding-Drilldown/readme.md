@@ -69,5 +69,5 @@
 - Replaced 7x7 by following
     - AvgPool2d
     - Conv2d(1x1)
-  - Model did not reach benchmarking accuracy of 99.4
-  - Model learning seems to be OK and I dont see any need for higher no of parameters
+- Model did not reach benchmarking accuracy of 99.4
+- Model learning seems to be OK and I dont see any need for higher no of parameters
