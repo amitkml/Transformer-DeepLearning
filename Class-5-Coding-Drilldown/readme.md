@@ -39,6 +39,19 @@
 
 ## Stage-2
 
+### Target
+- Have Model Training and Test Accuracy between 96 and 98%
+- Reduce number of model parameter to 9-10K
 
+### Results
+- Parameters: 10,970
+- Best Training Accuracy: 99
+- Best Test Accuracy: 99
+
+### Analysis
+- Model parameter has been reduced from 16940 to 10,970
+- No of parameter is high compare to benchmarking of 10k
+- Adding BN and Droput(in every conv block) has helped to improve the model
+- Model Accuracy is not as per target set of 99.4% (this must be consistently shown in your last few epochs, and not a one-time achievement)
 
 ## Stage-3
