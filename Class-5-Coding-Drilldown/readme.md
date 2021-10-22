@@ -40,7 +40,7 @@
 ## Stage-2
 
 ### Target
-- Have Model Training and Test Accuracy between 96 and 98%
+- Have Model Training and Test Accuracy to 99%
 - Reduce number of model parameter to 9-10K
 
 ### Results
