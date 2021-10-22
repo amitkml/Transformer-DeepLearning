@@ -17,6 +17,28 @@
 
 ## Stage-1
 
+### Target:
+
+- Get the set-up right
+- Set Transforms
+- Set Data Loader
+- Set Basic Working Code
+- Set Basic Training & Test Loop with decent accuracy
+
+### Results:
+
+- Parameters: 16,634
+- Best Training Accuracy: 98.00
+- Best Test Accuracy: 98.00
+
+### Analysis:
+
+- Model is working good having Test and Train accuracy running almost same. This means model does not have any sign of overfitting
+- No of parameter is high compare to benchmarking of 10k
+- Model Accuracy is not as per target set of 99.4% (this must be consistently shown in your last few epochs, and not a one-time achievement)
+
+
+
 ### Target
 
 ### Results
