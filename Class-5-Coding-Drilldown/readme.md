@@ -37,30 +37,8 @@
 - No of parameter is high compare to benchmarking of 10k
 - Model Accuracy is not as per target set of 99.4% (this must be consistently shown in your last few epochs, and not a one-time achievement)
 
-
-
-### Target
-
-### Results
-
-### Analysis
-
-
-
 ## Stage-2
-
-### Target
-
-### Results
-
-### Analysis
 
 
 
 ## Stage-3
-
-### Target
-
-### Results
-
-### Analysis
