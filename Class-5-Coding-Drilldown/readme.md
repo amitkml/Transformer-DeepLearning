@@ -55,3 +55,19 @@
 - Model Accuracy is not as per target set of 99.4% (this must be consistently shown in your last few epochs, and not a one-time achievement)
 
 ## Stage-3
+
+### Target
+- Have Model Training and Test Accuracy abive 99%
+- Reduce number of model parameter to 9-10K
+
+### Results
+- Parameters: 6,170
+- Best Training Accuracy: 98.58
+- Best Test Accuracy: 99
+
+### Analysis
+- Replaced 7x7 by following
+    - AvgPool2d
+    - Conv2d(1x1)
+  - Model did not reach benchmarking accuracy of 99.4
+  - Model learning seems to be OK and I dont see any need for higher no of parameters
