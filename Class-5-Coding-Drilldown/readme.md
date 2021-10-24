@@ -15,6 +15,8 @@
 
 # Final Model
 
+This is the stage-7 one and notbook link is https://github.com/amitkml/Transformer-DeepLearning/blob/main/Class-5-Coding-Drilldown/EVA7_Session5_Assignment_Stage_7_0.ipynb
+
 **Target**:
 
 - Achive 99.4% Test accuracy consistently from earlier Test Accuracy of 99.40 once
@@ -198,3 +200,80 @@ Test set: Average loss: 0.0193, Accuracy: 9940/10000 (99.4000%)
     - Conv2d(1x1)
 - Model did not reach benchmarking accuracy of 99.4
 - Model learning seems to be OK and I dont see any need for higher no of parameters
+
+## Stage 4
+
+**Target**:
+
+- Have Model Training and Test Accuracy abive 99%
+- Add CLR
+- Add image Augmentation
+
+**Results**:
+
+- Parameters: 7,914
+- Best Training Accuracy:  99
+- Best Test Accuracy: 99
+
+**Analysis**:
+
+- Have added one more convolution layer before GAP to increase the parameter as i am hoping that will allow me to cross 99.4
+- Have used cyclic learning rate
+- Have tried trng augmentation and did not help
+
+## Stage 5
+
+ **Target**:
+
+- Have Model Training and Test Accuracy abive 99%
+- Add CLR
+- Add image Augmentation
+
+**Results**:
+
+- Parameters: 7,712
+- Best Training Accuracy: 99.35
+- Best Test Accuracy: 99.30
+
+**Analysis**:
+
+- Added 2nd Max Pooling
+- Reduced AveragePooling kernel size 5 to 1
+- Added CONV2D 1x1 kernel after average Pooling
+- Added stepLR and found that step 4500 is giving better result. The  step 4500 is almost equal to 10 epoch and this means reduction of LR  after 10 epoch seems to be giving better result and have increased Test  accuracy from 99% to 99.30
+
+## Stage 6
+
+ **Target**:
+
+- Achive 99.4% Test accuracy from earlier Test Accuracy of 99.30 based on stage 5 model
+
+**Results**:
+
+- Parameters: 7,712
+- Best Training Accuracy: 99.37%
+- Best Test Accuracy: 99.4000%
+
+**Analysis**:
+
+- Added image augementation of rotation +3 to -3 degree
+- Have been able to reach 99.4% test accuracy within 8K parameters but  i want to achive multiple times this same accuracy to ensure this  accuracy is stable enough on test data.
+
+## Stage 7
+
+**Target**:
+
+- Achive 99.4% Test accuracy consistently from earlier Test Accuracy of 99.40 once
+
+**Results**:
+
+- Parameters: 7,712
+- Best Training Accuracy: 99.39%
+- Best Test Accuracy: 99.4100%
+
+**Analysis**:
+
+- Added image augementation of rotation +4 to -4 degree
+- Reduced dropout from 0.1 to 0.08. This is being done to ensure my model gets more weights to predict.
+- Have been able to reach 99.4% test accuracy consistently within 8K parameters
+
