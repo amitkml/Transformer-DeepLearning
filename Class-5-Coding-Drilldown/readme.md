@@ -33,6 +33,16 @@ This is the stage-7 one and notbook link is https://github.com/amitkml/Transform
 - Reduced dropout from 0.1 to 0.08. This is being done to ensure my model gets more weights to predict.
 - Have been able to reach 99.4% test accuracy consistently within 8K parameters
 
+## Key learning
+
+- Filter size in GAP impacts network parameters a lot and it is better to add a 3x3 filter before GAP to learn more
+- Dropout value matters a lot for network with lower no of parameters as this reduces number of neuron randomly
+- Slight random rotation is suitable (-4 to +4) is best for MNIST dataset
+- Step wise learning rate works best but step size should be more than atleast 10 epoch (assuming batch size of 128). MultistepLR and fixed LR did not work good at all.
+- xavier_uniform_ worked well for network initialisation
+- Have reduced max pooling twice into network and it helped a lot for reducing network parameter and performance.
+- Two transition layer of 1x1 helped network a lot to reduce number of channel and do point wise convolution.
+
 ## Model Architecture and Data Augmentation
 
 ```python
@@ -276,4 +286,3 @@ Test set: Average loss: 0.0193, Accuracy: 9940/10000 (99.4000%)
 - Added image augementation of rotation +4 to -4 degree
 - Reduced dropout from 0.1 to 0.08. This is being done to ensure my model gets more weights to predict.
 - Have been able to reach 99.4% test accuracy consistently within 8K parameters
-
