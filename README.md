@@ -29,3 +29,16 @@ In the first step, the input image is padded with zeros, while in the second ste
 The animations below explain the working of convolutional layers for different values of stride and padding.
 
 ![im](https://miro.medium.com/max/1250/1*YvlCSNzDEBGEWkZWNffPvw.gif)
+
+### Depthwise Separable Convolution
+
+Depthwise Separable Convolutions
+A lot about such convolutions published in the (Xception paper) or (MobileNet paper). Consist of:
+
+Depthwise convolution, i.e. a spatial convolution performed independently over each channel of an input.
+Pointwise convolution, i.e. a 1x1 convolution, projecting the channels output by the depthwise convolution onto a new channel space.
+Difference between Inception module and separable convolutions:
+
+Separable convolutions perform first channel-wise spatial convolution and then perform 1x1 convolution, whereas Inception performs the 1x1 convolution first.
+depthwise separable convolutions are usually implemented without non-linearities.
+![im](https://ikhlestov.github.io/images/ML_notes/convolutions/05_1_deepwise_convolutions.png)
