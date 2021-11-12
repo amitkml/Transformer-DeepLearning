@@ -64,8 +64,9 @@ Coarse Dropout and Cutout augmentation are techniques to prevent overfitting and
 
 Example. Drop 2% of all pixels by converting them to black pixels, but do that on a lower-resolution version of the image that has 50% of the original size, leading to 2x2 squares being dropped:
 
-''
+```
 import imgaug.augmenters as iaa
 aug = iaa.CoarseDropout(0.02, size_percent=0.5)
-''
+```
+
 ![im](https://imgaug.readthedocs.io/en/latest/_images/coarsedropout.jpg)
