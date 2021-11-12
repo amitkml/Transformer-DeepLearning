@@ -54,3 +54,18 @@ Difference between Inception module and separable convolutions:
 Separable convolutions perform first channel-wise spatial convolution and then perform 1x1 convolution, whereas Inception performs the 1x1 convolution first.
 depthwise separable convolutions are usually implemented without non-linearities.
 ![im](https://ikhlestov.github.io/images/ML_notes/convolutions/05_1_deepwise_convolutions.png)
+
+# Advanced Image Augmentation
+
+## Coarse Dropout and Cutout Augmentation for GPU/TPU
+Coarse Dropout and Cutout augmentation are techniques to prevent overfitting and encourage generalization. They randomly remove rectangles from training images. By removing portions of the images, we challenge our models to pay attention to the entire image because it never knows what part of the image will be present. (This is similar and different to dropout layer within a CNN).
+- Cutout is the technique of removing 1 large rectangle of random size
+- Coarse dropout is the technique of removing many small rectanges of similar size.
+
+Example. Drop 2% of all pixels by converting them to black pixels, but do that on a lower-resolution version of the image that has 50% of the original size, leading to 2x2 squares being dropped:
+
+''
+import imgaug.augmenters as iaa
+aug = iaa.CoarseDropout(0.02, size_percent=0.5)
+''
+![im](https://imgaug.readthedocs.io/en/latest/_images/coarsedropout.jpg)
