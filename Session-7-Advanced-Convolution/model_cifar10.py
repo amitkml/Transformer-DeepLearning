@@ -7,13 +7,15 @@ Original file is located at
     https://colab.research.google.com/drive/1N8qf5Z9qJIa2wxAddSy3BC4aQov8MTDU
 """
 
+
+import  helper_functions as helper_functions
+import model_training as model_training
+import augmentation_albumentations as augmentation_albumentations
+
 import torch.nn as nn
 import torch.nn.functional as F
-
-
 import torch.nn as nn
 import torch.nn.functional as F
-
 
 class Net(nn.Module):
     def __init__(self,dropout):

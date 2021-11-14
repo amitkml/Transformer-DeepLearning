@@ -7,7 +7,12 @@ Original file is located at
     https://colab.research.google.com/drive/11hqHKFPcSTxDXLvZfBQVFg3I0kJ1BH6q
 """
 
-!pip install -U albumentations
+# !pip install -U albumentations
+
+import  helper_functions as helper_functions
+import model_cifar10 as model_cifar10
+import model_training as model_training
+
 
 import albumentations as A
 from albumentations.pytorch.transforms import ToTensorV2
@@ -24,7 +29,7 @@ def data_albumentations(horizontalflip_prob = 0.2,
                         num_holes = 1,
                         cutout_prob = 0.5):
     # Calculate mean and std deviation for cifar dataset
-    mean,std = calculate_mean_std()
+    mean,std = helper_functions.calculate_mean_std()
     
     # Train Phase transformations
     train_transforms = A.Compose([A.HorizontalFlip(p=horizontalflip_prob),
