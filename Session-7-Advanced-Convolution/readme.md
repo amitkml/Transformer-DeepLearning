@@ -790,6 +790,37 @@ Loss=0.6644643545150757 Batch_id=195 LR=0.00000 Accuracy=81.92: 100%|███�
 Test set: Average loss: 0.0015, Accuracy: 8685/10000 (86.85%)
 ```
 
+## Learning Rate
+
+Have used one cycle LR as shared below.
+
+```
+  l1_factor = 0
+  l2_factor = 0.0001
+  # optim_type = optim.Adam
+  criterion = nn.CrossEntropyLoss()
+  # opt_func = optim.Adam
+  lr = 0.01
+  grad_clip = 0.1
+  train_losses = []
+  test_losses = []
+  train_accuracy = []
+  test_accuracy = []
+  lrs=[]
+
+  model = model
+  optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=l2_factor)
+  scheduler = OneCycleLR(optimizer, max_lr=lr,epochs=epochs,steps_per_epoch=len(dataset.train_loader))
+
+  for epoch in range(1, epochs + 1):
+    print(f'Epoch {epoch}:')
+    
+    model_training.train(model, device, dataset.train_loader, optimizer,epoch, train_accuracy, train_losses, l1_factor,scheduler,criterion,lrs,grad_clip)
+    model_training.test(model, device, dataset.test_loader,test_accuracy,test_losses,criterion)
+```
+
+
+
 ## Class wise summary
 
 This is quite clear that that model is still mixing up between Dog and Cat.
