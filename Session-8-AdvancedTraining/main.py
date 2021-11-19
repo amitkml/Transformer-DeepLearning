@@ -117,9 +117,8 @@ def train(epoch, model, optimizer, trainloader, device, criterion):
         total += targets.size(0)
         correct += predicted.eq(targets).sum().item()
         processed += len(inputs)
-        # mylr = get_lr(optimizer)
-        # print(mylr)
         lrs.append(get_lr(optimizer))
+        
         # pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} LR={get_lr(optimizer):0.5f} Accuracy={100*correct/processed:0.2f}')
         pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx}  LR={lrs[-1]:0.5f} Accuracy={100*correct/processed:0.2f}')
         # progress_bar(batch_idx, len(trainloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
