@@ -81,12 +81,13 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorch CIFAR10 Traini
                         momentum=0.9, weight_decay=5e-4)
   scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200)
   for epoch in range(start_epoch, start_epoch+200):
-      train(epoch, net, optimizer)
-      test(epoch, net, optimizer)
+      train(epoch, net, optimizer, trainloader)
+      test(epoch, net, optimizer, testloader)
       scheduler.step()
   
 # Training
-def train(epoch, model, optimizer):
+def train(epoch, model, optimizer, trainloader):
+    trainloader = trainloader
     optimizer = optimizer
     net = model
     print('\nEpoch: %d' % epoch)
@@ -118,7 +119,8 @@ def train(epoch, model, optimizer):
         #              % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
 
 
-def test(epoch, model, optimizer):
+def test(epoch, model, optimizer, testloader):
+    testloader = testloader
     optimizer = optimizer
     net = model
     global best_acc
