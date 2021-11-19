@@ -13,6 +13,7 @@ import torchvision.transforms as transforms
 from tqdm import tqdm
 
 from models import *
+from utils import *
 best_acc = 0  # best test accuracy
 start_epoch = 0  # start from epoch 0 or last checkpoint epoch
 
@@ -20,7 +21,7 @@ def get_lr(optimizer):
     for param_group in optimizer.param_groups:
         return param_group['lr']
 
-def run_experiments(lr = 0.1, resume = '', description = 'PyTorch CIFAR10 Training', epoch =20):
+def run_experiments(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training', epoch =20):
   
  # https://stackoverflow.com/questions/45823991/argparse-in-ipython-notebook-unrecognized-arguments-f
 #   parser = argparse.ArgumentParser()
@@ -63,9 +64,17 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorch CIFAR10 Traini
 
 # Model
   print('==> Building model..')
+  train_losses = []
+  test_losses = []
+  train_accuracy = []
+  test_accuracy = []
+  
 # net = VGG('VGG19')
   net = ResNet18()
   net = net.to(device)
+  model_summary(net, input_size=(3, 32, 32)):
+      
+  exp_metrics={}
   if device == 'cuda':
       net = torch.nn.DataParallel(net)
       cudnn.benchmark = True
@@ -84,12 +93,18 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorch CIFAR10 Traini
                         momentum=0.9, weight_decay=5e-4)
   scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200)
   for epoch in range(start_epoch, start_epoch+epoch):
-      train(epoch, net, optimizer, trainloader, device, criterion)
-      test(epoch, net, optimizer, testloader, device, criterion)
+      train(epoch, net, optimizer, trainloader, device, criterion, train_losses, train_accuracy)
+      test(epoch, net, optimizer, testloader, device, criterion, test_losses, test_accuracy)
       scheduler.step()
   
+  exp_metrics[description] = (train_accuracy,train_losses,test_accuracy,test_losses)
+  
+  class_level_accuracy(net, testloader, device)
+  
+  wrong_predictions(testloader,use_cuda, net)
+  
 # Training
-def train(epoch, model, optimizer, trainloader, device, criterion):
+def train(epoch, model, optimizer, trainloader, device, criterion, train_losses, train_accuracy):
     criterion = criterion
     device = device
     trainloader = trainloader
@@ -97,7 +112,7 @@ def train(epoch, model, optimizer, trainloader, device, criterion):
     net = model
     print('\nEpoch: %d' % epoch)
     net.train()
-    train_loss = 0
+    # train_loss = 0
     correct = 0
     total = 0
     processed = 0
@@ -113,7 +128,8 @@ def train(epoch, model, optimizer, trainloader, device, criterion):
         loss.backward()
         optimizer.step()
 
-        train_loss += loss.item()
+        # train_loss += loss.item()
+        train_losses.append(loss.data.cpu().numpy().item())
         _, predicted = outputs.max(1)
         total += targets.size(0)
         correct += predicted.eq(targets).sum().item()
@@ -122,11 +138,12 @@ def train(epoch, model, optimizer, trainloader, device, criterion):
         
         # pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} LR={get_lr(optimizer):0.5f} Accuracy={100*correct/processed:0.2f}')
         pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx}  LR={lrs[-1]:0.5f} Accuracy={100*correct/processed:0.2f}')
+        train_accuracy.append(100*correct/processed)
         # progress_bar(batch_idx, len(trainloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
         #              % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
 
 
-def test(epoch, model, optimizer, testloader, device, criterion):
+def test(epoch, model, optimizer, testloader, device, criterion, test_losses, test_accuracy):
     criterion = criterion
     device = device
     testloader = testloader
@@ -134,7 +151,7 @@ def test(epoch, model, optimizer, testloader, device, criterion):
     net = model
     global best_acc
     net.eval()
-    test_loss = 0
+    # test_loss = 0
     correct = 0
     total = 0
     pbar = tqdm(testloader)
@@ -147,7 +164,8 @@ def test(epoch, model, optimizer, testloader, device, criterion):
             outputs = net(inputs)
             loss = criterion(outputs, targets)
 
-            test_loss += loss.item()
+            # test_loss += loss.item()
+            test_losses.append(loss.data.cpu().numpy().item())
             _, predicted = outputs.max(1)
             total += targets.size(0)
             correct += predicted.eq(targets).sum().item()
@@ -155,6 +173,7 @@ def test(epoch, model, optimizer, testloader, device, criterion):
             # pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} LR={get_lr(optimizer):0.5f} Accuracy={100*correct/total:0.2f}')
             # pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} LR={get_lr(optimizer):0.5f} Accuracy={100*correct/total:0.2f}')
             pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} LR={lrs[-1]:0.5f} Accuracy={100*correct/total:0.2f}')
+            test_accuracy.append(100*correct/total)
             
 
     # Save checkpoint.
