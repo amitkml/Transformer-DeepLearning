@@ -19,7 +19,7 @@ def run_experiments(lr = 0.1, resume = 'store_true', description = 'PyTorch CIFA
   
  # https://stackoverflow.com/questions/45823991/argparse-in-ipython-notebook-unrecognized-arguments-f
   parser = argparse.ArgumentParser()
-  parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
+#   parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
 
   args = parser.parse_args(args=['--lr', lr, '--resume', 'store_true'])
   use_cuda = torch.cuda.is_available()
