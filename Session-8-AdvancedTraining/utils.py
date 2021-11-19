@@ -46,6 +46,7 @@ def init_params(net):
 #     term_width = 150
 # except:
 #     term_width = 150
+
 term_width = 150
 term_width = int(term_width)
 
