@@ -14,6 +14,9 @@ from tqdm import tqdm
 
 from models import *
 
+def get_lr(optimizer):
+    for param_group in optimizer.param_groups:
+        return param_group['lr']
 
 def run_experiments(lr = 0.1, resume = '', description = 'PyTorch CIFAR10 Training'):
   
@@ -78,13 +81,14 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorch CIFAR10 Traini
                         momentum=0.9, weight_decay=5e-4)
   scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200)
   for epoch in range(start_epoch, start_epoch+200):
-      train(epoch)
-      test(epoch)
+      train(epoch, net, optimizer)
+      test(epoch, net, optimizer)
       scheduler.step()
   
 # Training
-def train(epoch):
-    
+def train(epoch, model, optimizer):
+    optimizer = optimizer
+    net = model
     print('\nEpoch: %d' % epoch)
     net.train()
     train_loss = 0
@@ -114,14 +118,17 @@ def train(epoch):
         #              % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
 
 
-def test(epoch):
+def test(epoch, model, optimizer):
+    optimizer = optimizer
+    net = model
     global best_acc
     net.eval()
     test_loss = 0
     correct = 0
     total = 0
+    pbar = tqdm(testloader)
     with torch.no_grad():
-        for batch_idx, (inputs, targets) in enumerate(testloader):
+        for batch_idx, (inputs, targets) in enumerate(pbar):
             inputs, targets = inputs.to(device), targets.to(device)
             outputs = net(inputs)
             loss = criterion(outputs, targets)
@@ -131,6 +138,8 @@ def test(epoch):
             total += targets.size(0)
             correct += predicted.eq(targets).sum().item()
 
+            pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} LR={get_lr(optimizer):0.5f} Accuracy={100*correct/total:%.3f%% (%d/%d)}')
+            
             progress_bar(batch_idx, len(testloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
                          % (test_loss/(batch_idx+1), 100.*correct/total, correct, total))
 
