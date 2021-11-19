@@ -14,6 +14,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
+!pip install torchsummary
+from torchsummary import summary
+
 def get_mean_and_std(dataset):
     '''Compute the mean and std value of dataset.'''
     dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=True, num_workers=2)
@@ -220,7 +223,7 @@ def wrong_predictions(test_loader,
             plt.show()
             
 def model_summary(model, input_size=(3, 32, 32)):
-      use_cuda = torch.cuda.is_available()
-  device = torch.device("cuda" if use_cuda else "cpu")
-  print(model)
-  summary(model,input_size)
+    use_cuda = torch.cuda.is_available()
+    device = torch.device("cuda" if use_cuda else "cpu")
+    print(model)
+    summary(model,input_size)
