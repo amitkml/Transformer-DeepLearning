@@ -22,7 +22,7 @@ import torch.optim as optim
 import torchvision
 import torchvision.transforms as transforms
 
-pip install torchsummary
+# pip install torchsummary
 
 def get_mean_and_std(dataset):
     '''Compute the mean and std value of dataset.'''
