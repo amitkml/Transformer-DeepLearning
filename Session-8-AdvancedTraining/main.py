@@ -146,7 +146,9 @@ def test(epoch, model, optimizer, testloader, device, criterion):
             total += targets.size(0)
             correct += predicted.eq(targets).sum().item()
 
+            # pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} LR={get_lr(optimizer):0.5f} Accuracy={100*correct/total:0.2f}')
             pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} LR={get_lr(optimizer):0.5f} Accuracy={100*correct/total:0.2f}')
+            
 
     # Save checkpoint.
     acc = 100.*correct/total
