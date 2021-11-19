@@ -14,8 +14,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-!pip install torchsummary
-from torchsummary import summary
+# !pip install torchsummary
 
 def get_mean_and_std(dataset):
     '''Compute the mean and std value of dataset.'''
@@ -226,4 +225,4 @@ def model_summary(model, input_size=(3, 32, 32)):
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda" if use_cuda else "cpu")
     print(model)
-    summary(model,input_size)
+    
