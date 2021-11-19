@@ -22,7 +22,7 @@ import torch.optim as optim
 import torchvision
 import torchvision.transforms as transforms
 
-# !pip install torchsummary
+pip install torchsummary
 
 def get_mean_and_std(dataset):
     '''Compute the mean and std value of dataset.'''
@@ -229,8 +229,8 @@ def wrong_predictions(test_loader,
           
             plt.show()
             
-def model_summary(model, input_size=(3, 32, 32)):
-    use_cuda = torch.cuda.is_available()
-    device = torch.device("cuda" if use_cuda else "cpu")
+def model_summary(model, device, input_size=(3, 32, 32)):
+    # use_cuda = torch.cuda.is_available()
+    # device = torch.device("cuda" if use_cuda else "cpu")
     print(model)
     
