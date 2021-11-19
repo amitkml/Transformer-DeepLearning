@@ -230,4 +230,5 @@ def wrong_predictions(test_loader,
             
 def model_summary(model, device, input_size=(3, 32, 32)):
     print(model)
+    summary(model,input_size)
     
