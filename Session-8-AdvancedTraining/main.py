@@ -31,7 +31,7 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorch CIFAR10 Traini
   use_cuda = torch.cuda.is_available()
   device = torch.device("cuda" if use_cuda else "cpu")
 #   best_acc = 0  # best test accuracy
-  
+  start_epoch = 0
   print("Got all parser argument")
   # Data
   print('==> Preparing data..')
