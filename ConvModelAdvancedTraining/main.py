@@ -14,6 +14,9 @@ from tqdm import tqdm
 
 from models import *
 from utils import *
+
+os.system('pip install albumentations')
+
 best_acc = 0  # best test accuracy
 start_epoch = 0  # start from epoch 0 or last checkpoint epoch
 
