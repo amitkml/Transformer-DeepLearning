@@ -21,6 +21,10 @@ import torch.nn.functional as F
 import torch.optim as optim
 import torchvision.transforms as transforms
 
+import os
+os.system('pip install torchsummary')
+
+
 # pip install torchsummary
 
 def get_mean_and_std(dataset):
