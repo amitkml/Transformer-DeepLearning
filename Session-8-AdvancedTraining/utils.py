@@ -41,11 +41,12 @@ def init_params(net):
             if m.bias:
                 init.constant(m.bias, 0)
 ## This is handling the case where the number of parameters is too few as i am running from colab
-try:
-    _, term_width = os.popen('stty size', 'r').read().split()
-except:
-    term_width = 150
-
+# try:
+#     _, term_width = os.popen('stty size', 'r').read().split()
+#     term_width = 150
+# except:
+#     term_width = 150
+term_width = 150
 term_width = int(term_width)
 
 TOTAL_BAR_LENGTH = 65.
