@@ -20,13 +20,14 @@ def get_lr(optimizer):
     for param_group in optimizer.param_groups:
         return param_group['lr']
 
-def run_experiments(lr = 0.1, resume = '', description = 'PyTorch CIFAR10 Training'):
+def run_experiments(lr = 0.1, resume = '', description = 'PyTorch CIFAR10 Training', epoch =20):
   
  # https://stackoverflow.com/questions/45823991/argparse-in-ipython-notebook-unrecognized-arguments-f
 #   parser = argparse.ArgumentParser()
 #   parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
   lr = lr
   resume = resume
+  epoch = epoch
 #   args = parser.parse_args(args=['--lr', lr, '--resume', 'store_true'])
   use_cuda = torch.cuda.is_available()
   device = torch.device("cuda" if use_cuda else "cpu")
@@ -82,7 +83,7 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorch CIFAR10 Traini
   optimizer = optim.SGD(net.parameters(), lr=lr,
                         momentum=0.9, weight_decay=5e-4)
   scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200)
-  for epoch in range(start_epoch, start_epoch+200):
+  for epoch in range(start_epoch, start_epoch+epoch):
       train(epoch, net, optimizer, trainloader, device, criterion)
       test(epoch, net, optimizer, testloader, device, criterion)
       scheduler.step()
