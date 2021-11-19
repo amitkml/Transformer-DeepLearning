@@ -18,10 +18,11 @@ from models import *
 def run_experiments(lr = 0.1, resume = 'store_true', description = 'PyTorch CIFAR10 Training'):
   
  # https://stackoverflow.com/questions/45823991/argparse-in-ipython-notebook-unrecognized-arguments-f
-  parser = argparse.ArgumentParser()
+#   parser = argparse.ArgumentParser()
 #   parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
-
-  args = parser.parse_args(args=['--lr', lr, '--resume', 'store_true'])
+  lr = lr
+  resume = resume
+#   args = parser.parse_args(args=['--lr', lr, '--resume', 'store_true'])
   use_cuda = torch.cuda.is_available()
   device = torch.device("cuda" if use_cuda else "cpu")
   best_acc = 0  # best test accuracy
@@ -63,7 +64,7 @@ def run_experiments(lr = 0.1, resume = 'store_true', description = 'PyTorch CIFA
       net = torch.nn.DataParallel(net)
       cudnn.benchmark = True
 
-  if args.resume:
+  if resume:
     # Load checkpoint.
     print('==> Resuming from checkpoint..')
     assert os.path.isdir('checkpoint'), 'Error: no checkpoint directory found!'
@@ -73,7 +74,7 @@ def run_experiments(lr = 0.1, resume = 'store_true', description = 'PyTorch CIFA
     start_epoch = checkpoint['epoch']
 
   criterion = nn.CrossEntropyLoss()
-  optimizer = optim.SGD(net.parameters(), lr=args.lr,
+  optimizer = optim.SGD(net.parameters(), lr=lr,
                         momentum=0.9, weight_decay=5e-4)
   scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200)
   for epoch in range(start_epoch, start_epoch+200):
