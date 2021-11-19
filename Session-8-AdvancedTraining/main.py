@@ -13,6 +13,8 @@ import torchvision.transforms as transforms
 from tqdm import tqdm
 
 from models import *
+best_acc = 0  # best test accuracy
+start_epoch = 0  # start from epoch 0 or last checkpoint epoch
 
 def get_lr(optimizer):
     for param_group in optimizer.param_groups:
@@ -28,8 +30,8 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorch CIFAR10 Traini
 #   args = parser.parse_args(args=['--lr', lr, '--resume', 'store_true'])
   use_cuda = torch.cuda.is_available()
   device = torch.device("cuda" if use_cuda else "cpu")
-  best_acc = 0  # best test accuracy
-  start_epoch = 0  # start from epoch 0 or last checkpoint epoch
+#   best_acc = 0  # best test accuracy
+  
   print("Got all parser argument")
   # Data
   print('==> Preparing data..')
@@ -81,12 +83,14 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorch CIFAR10 Traini
                         momentum=0.9, weight_decay=5e-4)
   scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200)
   for epoch in range(start_epoch, start_epoch+200):
-      train(epoch, net, optimizer, trainloader)
-      test(epoch, net, optimizer, testloader)
+      train(epoch, net, optimizer, trainloader, device, criterion)
+      test(epoch, net, optimizer, testloader, device, criterion)
       scheduler.step()
   
 # Training
-def train(epoch, model, optimizer, trainloader):
+def train(epoch, model, optimizer, trainloader, device, criterion):
+    criterion = criterion
+    device = device
     trainloader = trainloader
     optimizer = optimizer
     net = model
@@ -119,7 +123,9 @@ def train(epoch, model, optimizer, trainloader):
         #              % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
 
 
-def test(epoch, model, optimizer, testloader):
+def test(epoch, model, optimizer, testloader, device, criterion):
+    criterion = criterion
+    device = device
     testloader = testloader
     optimizer = optimizer
     net = model
@@ -141,9 +147,6 @@ def test(epoch, model, optimizer, testloader):
             correct += predicted.eq(targets).sum().item()
 
             pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} LR={get_lr(optimizer):0.5f} Accuracy={100*correct/total:%.3f%% (%d/%d)}')
-            
-            progress_bar(batch_idx, len(testloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
-                         % (test_loss/(batch_idx+1), 100.*correct/total, correct, total))
 
     # Save checkpoint.
     acc = 100.*correct/total
@@ -158,9 +161,3 @@ def test(epoch, model, optimizer, testloader):
             os.mkdir('checkpoint')
         torch.save(state, './checkpoint/ckpt.pth')
         best_acc = acc
-
-
-# for epoch in range(start_epoch, start_epoch+200):
-#     train(epoch)
-#     test(epoch)
-#     scheduler.step()
