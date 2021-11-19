@@ -1,30 +1,28 @@
 '''Train CIFAR10 with PyTorch.'''
-import torch
-import torch.nn as nn
-import torch.optim as optim
-import torch.nn.functional as F
-import torch.backends.cudnn as cudnn
+import argparse
+import os
 
+import torch
+import torch.backends.cudnn as cudnn
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
 import torchvision
 import torchvision.transforms as transforms
-
-import os
-import argparse
-
-from models import *
 # from utils import progress_bar
 from tqdm import tqdm
 
-def run_experiments(lr = 0.1,
-                    resume = 'store_true',
-                    description = 'PyTorch CIFAR10 Training'):
+from models import *
+
+
+def run_experiments(lr = 0.1, resume = 'store_true', description = 'PyTorch CIFAR10 Training'):
     
-    
-    print("starting all parser argument")
+        
   # https://stackoverflow.com/questions/45823991/argparse-in-ipython-notebook-unrecognized-arguments-f
     args = parser.parse_args(args=['--lr', lr, '--resume', 'store_true'])
-    use_cuda = torch.cuda.is_available()
+    use_cuda = torch.cuda.is_available()   
     device = torch.device("cuda" if use_cuda else "cpu")
+    
     best_acc = 0  # best test accuracy
     start_epoch = 0  # start from epoch 0 or last checkpoint epoch
     print("Got all parser argument")
