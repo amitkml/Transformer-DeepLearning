@@ -23,7 +23,7 @@ import torchvision.transforms as transforms
 
 import os
 os.system('pip install torchsummary')
-
+from torchsummary import summary
 
 # pip install torchsummary
 
