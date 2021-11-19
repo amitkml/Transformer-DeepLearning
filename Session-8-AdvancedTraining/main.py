@@ -72,6 +72,10 @@ def run_experiments(lr = 0.1, resume = 'store_true', description = 'PyTorch CIFA
   optimizer = optim.SGD(net.parameters(), lr=args.lr,
                         momentum=0.9, weight_decay=5e-4)
   scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200)
+  for epoch in range(start_epoch, start_epoch+200):
+      train(epoch)
+      test(epoch)
+      scheduler.step()
   
 # Training
 def train(epoch):
@@ -140,7 +144,7 @@ def test(epoch):
         best_acc = acc
 
 
-for epoch in range(start_epoch, start_epoch+200):
-    train(epoch)
-    test(epoch)
-    scheduler.step()
+# for epoch in range(start_epoch, start_epoch+200):
+#     train(epoch)
+#     test(epoch)
+#     scheduler.step()
