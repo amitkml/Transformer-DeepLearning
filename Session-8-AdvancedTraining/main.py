@@ -116,9 +116,11 @@ def train(epoch, model, optimizer, trainloader, device, criterion):
         total += targets.size(0)
         correct += predicted.eq(targets).sum().item()
         processed += len(inputs)
+        mylr = get_lr(optimizer)
+        print(f'LR: {mylr}')
         
-        pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} LR={get_lr(optimizer):0.5f} Accuracy={100*correct/processed:0.2f}')
-
+        # pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} LR={get_lr(optimizer):0.5f} Accuracy={100*correct/processed:0.2f}')
+        pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx}  Accuracy={100*correct/processed:0.2f}')
         # progress_bar(batch_idx, len(trainloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
         #              % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
 
@@ -147,7 +149,8 @@ def test(epoch, model, optimizer, testloader, device, criterion):
             correct += predicted.eq(targets).sum().item()
 
             # pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} LR={get_lr(optimizer):0.5f} Accuracy={100*correct/total:0.2f}')
-            pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} LR={get_lr(optimizer):0.5f} Accuracy={100*correct/total:0.2f}')
+            # pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} LR={get_lr(optimizer):0.5f} Accuracy={100*correct/total:0.2f}')
+            pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} Accuracy={100*correct/total:0.2f}')
             
 
     # Save checkpoint.
