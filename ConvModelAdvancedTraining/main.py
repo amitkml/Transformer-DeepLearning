@@ -72,7 +72,8 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training
 # net = VGG('VGG19')
   net = ResNet18()
   net = net.to(device)
-  model_summary(net, input_size=(3, 32, 32)):
+  
+  model_summary(net, input_size=(3, 32, 32))
       
   exp_metrics={}
   if device == 'cuda':
