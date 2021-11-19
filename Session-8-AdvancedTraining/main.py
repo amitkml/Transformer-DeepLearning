@@ -21,15 +21,8 @@ def run_experiments(lr = 0.1,
     print("starting all parser argument")
     
 
-# parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
-# parser.add_argument('--lr', default=0.1, type=float, help='learning rate')
-# parser.add_argument('--resume', '-r', action='store_true',
-#                     help='resume from checkpoint')
-# args = parser.parse_args()
 # https://stackoverflow.com/questions/45823991/argparse-in-ipython-notebook-unrecognized-arguments-f
     args = parser.parse_args(args=['--lr', lr, '--resume', 'store_true'])
-
-# args = parser.parse_args(args=[])
 
 
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
