@@ -15,7 +15,7 @@ from tqdm import tqdm
 from models import *
 
 
-def run_experiments(lr = 0.1, resume = 'store_true', description = 'PyTorch CIFAR10 Training'):
+def run_experiments(lr = 0.1, resume = '', description = 'PyTorch CIFAR10 Training'):
   
  # https://stackoverflow.com/questions/45823991/argparse-in-ipython-notebook-unrecognized-arguments-f
 #   parser = argparse.ArgumentParser()
