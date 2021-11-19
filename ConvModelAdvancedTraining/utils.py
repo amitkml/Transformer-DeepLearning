@@ -230,7 +230,5 @@ def wrong_predictions(test_loader,
             plt.show()
             
 def model_summary(model, device, input_size=(3, 32, 32)):
-    # use_cuda = torch.cuda.is_available()
-    # device = torch.device("cuda" if use_cuda else "cpu")
     print(model)
     

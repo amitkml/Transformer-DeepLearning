@@ -102,7 +102,7 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training
   
   class_level_accuracy(net, testloader, device)
   
-  wrong_predictions(testloader,use_cuda, net)
+  wrong_predictions(testloader, use_cuda, net)
   
 # Training
 def train(epoch, model, optimizer, trainloader, device, criterion, train_losses, train_accuracy):
