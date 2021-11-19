@@ -100,6 +100,7 @@ def train(epoch, model, optimizer, trainloader, device, criterion):
     correct = 0
     total = 0
     processed = 0
+    lrs=[]
     
     pbar = tqdm(trainloader)
     
@@ -116,11 +117,11 @@ def train(epoch, model, optimizer, trainloader, device, criterion):
         total += targets.size(0)
         correct += predicted.eq(targets).sum().item()
         processed += len(inputs)
-        mylr = get_lr(optimizer)
-        print(mylr)
-        
+        # mylr = get_lr(optimizer)
+        # print(mylr)
+        lrs.append(get_lr(optimizer))
         # pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} LR={get_lr(optimizer):0.5f} Accuracy={100*correct/processed:0.2f}')
-        pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx}  Accuracy={100*correct/processed:0.2f}')
+        pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx}  LR={lrs[-1]:0.5f} Accuracy={100*correct/processed:0.2f}')
         # progress_bar(batch_idx, len(trainloader), 'Loss: %.3f | Acc: %.3f%% (%d/%d)'
         #              % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
 
@@ -137,6 +138,9 @@ def test(epoch, model, optimizer, testloader, device, criterion):
     correct = 0
     total = 0
     pbar = tqdm(testloader)
+    lrs=[]
+    lrs.append(get_lr(optimizer))
+    
     with torch.no_grad():
         for batch_idx, (inputs, targets) in enumerate(pbar):
             inputs, targets = inputs.to(device), targets.to(device)
@@ -150,7 +154,7 @@ def test(epoch, model, optimizer, testloader, device, criterion):
 
             # pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} LR={get_lr(optimizer):0.5f} Accuracy={100*correct/total:0.2f}')
             # pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} LR={get_lr(optimizer):0.5f} Accuracy={100*correct/total:0.2f}')
-            pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} Accuracy={100*correct/total:0.2f}')
+            pbar.set_description(desc= f'Loss={loss.item()} Batch_id={batch_idx} LR={lrs[-1]:0.5f} Accuracy={100*correct/total:0.2f}')
             
 
     # Save checkpoint.
