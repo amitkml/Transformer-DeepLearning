@@ -24,6 +24,41 @@ import torchvision.transforms as transforms
 import os
 os.system('pip install torchsummary')
 from torchsummary import summary
+os.system('pip install albumentations')
+
+import albumentations as A
+from albumentations.pytorch.transforms import ToTensorV2
+
+# EXPERIMENT horizontalflip_prob increased to 0.3 from 0.2, rotate_limit to 20 from 15
+def data_albumentations(mean,std, horizontalflip_prob = 0.2,
+                        rotate_limit = 15,
+                        shiftscalerotate_prob = 0.25,
+                        num_holes = 1,
+                        random_crop_p = 0.2,
+                        cutout_prob = 0.5):
+    # Calculate mean and std deviation for cifar dataset
+    
+    
+    # Train Phase transformations
+    train_transforms = A.Compose([A.HorizontalFlip(p=horizontalflip_prob),
+                                  A.RandomCrop(width=4,height=4, height=256, p=random_crop_p),
+                                  A.GaussNoise(p=0.1),
+                                #   A.cutout(num_hole s=num_holes, max_h_size=16, max_w_size=16, p=cutout_prob),
+                                  A.ShiftScaleRotate(shift_limit=0.1, scale_limit=0.1, rotate_limit=rotate_limit, p=shiftscalerotate_prob),
+                                  A.CoarseDropout(max_holes=num_holes,min_holes = 1, max_height=16, max_width=16, 
+                                  p=cutout_prob,fill_value=tuple([x * 255.0 for x in mean]),
+                                  min_height=16, min_width=16),
+                                  A.ColorJitter(p=0.25,brightness=0.3, contrast=0.3, saturation=0.30, hue=0.2),
+                                  A.ToGray(p=0.2),
+                                  A.Normalize(mean=mean, std=std,always_apply=True),
+                                  ToTensorV2()
+                                ])
+
+    # Test Phase transformations
+    test_transforms = A.Compose([A.Normalize(mean=mean, std=std, always_apply=True),
+                                 ToTensorV2()])
+
+    return lambda img:train_transforms(image=np.array(img))["image"],lambda img:test_transforms(image=np.array(img))["image"]
 
 # pip install torchsummary
 
