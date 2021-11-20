@@ -22,13 +22,48 @@ import torch.optim as optim
 import torchvision.transforms as transforms
 
 import os
+## This is for gradcam and taken from https://github.com/jacobgil/pytorch-grad-cam
+os.system('pip install pytorch_grad_cam')
+from pytorch_grad_cam import GradCAM, \
+    ScoreCAM, \
+    GradCAMPlusPlus, \
+    AblationCAM, \
+    XGradCAM, \
+    EigenCAM, \
+    EigenGradCAM, \
+    LayerCAM, \
+    FullGrad
+from pytorch_grad_cam.utils.image import show_cam_on_image, \
+    preprocess_image
+
+## this is for displayig model summary
 os.system('pip install torchsummary')
 from torchsummary import summary
+
+## this is for image augmentation and taken from albumentations
 os.system('pip install -U albumentations')
 from torchvision import datasets
 import albumentations as A
 from albumentations.pytorch.transforms import ToTensorV2
 
+def get_grad_cam(model, input_tensor, rgb_img, device):
+    target_layers = [model.layer4[-1]]
+    input_tensor = input_tensor # Create an input tensor image for your model..
+    # Construct the CAM object once, and then re-use it on many images:
+    
+    if device == 'cuda':
+        use_cuda = True
+    else:
+        use_cuda = False
+        
+    cam = GradCAM(model=model,
+                  target_layers=target_layers,
+                  use_cuda=use_cuda)
+    target_category = 281
+    grayscale_cam = cam(input_tensor=input_tensor, target_category=target_category)
+
+    visualization = show_cam_on_image(rgb_img, grayscale_cam, use_rgb=True)
+    
 # EXPERIMENT horizontalflip_prob increased to 0.3 from 0.2, rotate_limit to 20 from 15
 def data_albumentations(mean,std, horizontalflip_prob = 0.2,
                         rotate_limit = 15,

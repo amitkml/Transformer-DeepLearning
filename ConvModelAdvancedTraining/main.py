@@ -27,7 +27,7 @@ def get_lr(optimizer):
     for param_group in optimizer.param_groups:
         return param_group['lr']
 
-def run_experiments(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training', epoch =20, lr_scheduler='ReduceLROnPlateau'):
+def run_experiments(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training', epoch =40, lr_scheduler='ReduceLROnPlateau'):
   
  # https://stackoverflow.com/questions/45823991/argparse-in-ipython-notebook-unrecognized-arguments-f
 #   parser = argparse.ArgumentParser()
