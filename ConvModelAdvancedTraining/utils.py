@@ -25,7 +25,7 @@ import os
 os.system('pip install torchsummary')
 from torchsummary import summary
 os.system('pip install -U albumentations')
-
+from torchvision import datasets
 import albumentations as A
 from albumentations.pytorch.transforms import ToTensorV2
 
@@ -62,19 +62,14 @@ def data_albumentations(mean,std, horizontalflip_prob = 0.2,
 
 # pip install torchsummary
 
-def get_mean_and_std(dataset):
+def get_mean_and_std():
     '''Compute the mean and std value of dataset.'''
-    dataloader = torch.utils.data.DataLoader(dataset, batch_size=1, shuffle=True, num_workers=2)
-    mean = torch.zeros(3)
-    std = torch.zeros(3)
-    print('==> Computing mean and std..')
-    for inputs, targets in dataloader:
-        for i in range(3):
-            mean[i] += inputs[:,i,:,:].mean()
-            std[i] += inputs[:,i,:,:].std()
-    mean.div_(len(dataset))
-    std.div_(len(dataset))
+    train_transform = transforms.Compose([transforms.ToTensor()])
+    train_set = datasets.CIFAR10(root='./data', train=True, download=True, transform=train_transform)
+    mean = train_set.data.mean(axis=(0,1,2))/255
+    std = train_set.data.std(axis=(0,1,2))/255
     return mean, std
+
 
 def init_params(net):
     '''Init layer parameters.'''

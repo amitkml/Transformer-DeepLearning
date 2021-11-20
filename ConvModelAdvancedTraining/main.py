@@ -44,7 +44,9 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training
   # Data
   print('====================> Preparing data................')
   
-  train_transforms, test_transforms = data_albumentations()
+  mean,std = get_mean_and_std()
+
+  train_transforms, test_transforms = data_albumentations(mean, std)
   
   transform_train = transforms.Compose([
       transforms.RandomCrop(32, padding=4),
@@ -68,7 +70,6 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training
   testloader = torch.utils.data.DataLoader(  
       testset, batch_size=100, shuffle=False, num_workers=2)
   
-  mean,std = get_mean_and_std(trainset)
 
   classes = ('plane', 'car', 'bird', 'cat', 'deer',
              'dog', 'frog', 'horse', 'ship', 'truck')
