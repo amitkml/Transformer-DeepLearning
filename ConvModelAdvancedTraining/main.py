@@ -116,6 +116,7 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training
   print('/n ============================================== Training and Testing Performance ================================ /n')
   print('/n ================================================================================================================ /n')  
   exp_metrics[description] = (train_accuracy,train_losses,test_accuracy,test_losses)
+  plot_metrics(exp_metrics[description])
   
   print('/n ===================================================== Class Level Accuracy ========================================== /n')
   print('/n ===================================================================================================================== /n')  
