@@ -41,7 +41,7 @@ def data_albumentations(mean,std, horizontalflip_prob = 0.2,
     
     # Train Phase transformations
     train_transforms = A.Compose([A.HorizontalFlip(p=horizontalflip_prob),
-                                  A.RandomCrop(4, 4, p=random_crop_p),
+                                  A.RandomCrop(height=4, width=4, p=random_crop_p),
                                   A.PadIfNeeded(32, 32, p=1.0, value=tuple([x * 255.0 for x in mean])),
                                   A.GaussNoise(p=0.1),
                                 #   A.cutout(num_hole s=num_holes, max_h_size=16, max_w_size=16, p=cutout_prob),
