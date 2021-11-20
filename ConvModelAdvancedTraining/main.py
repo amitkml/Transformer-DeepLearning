@@ -113,18 +113,18 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training
       train(epoch, net, optimizer, trainloader, device, criterion, train_losses, train_accuracy)
       test(epoch, net, optimizer, testloader, device, criterion, test_losses, test_accuracy)
       scheduler.step(test_accuracy[-1])
-  print('/n ============================================== Training and Testing Performance ================================ /n')
-  print('/n ================================================================================================================ /n')  
+  print('/n ========================================================= Training and Testing Performance ================================ /n')
+  print('/n =========================================================================================================================== /n')  
   exp_metrics[description] = (train_accuracy,train_losses,test_accuracy,test_losses)
   plot_metrics(exp_metrics[description])
   
-  print('/n ===================================================== Class Level Accuracy ========================================== /n')
-  print('/n ===================================================================================================================== /n')  
+  print('/n ============================================================= Class Level Accuracy ========================================== /n')
+  print('/n ============================================================================================================================= /n')  
   class_level_accuracy(net, testloader, device)
   
-  print('/n ======================================= Random Misclassified Images ================================================== /n')
+  print('/n ============================================== Random Misclassified Images ================================================== /n')
   wrong_predictions(testloader, use_cuda, net)
-  print('/n ====================================================================================================================== /n')  
+  print('/n ============================================================================================================================= /n')  
 # Training
 def train(epoch, model, optimizer, trainloader, device, criterion, train_losses, train_accuracy):
     criterion = criterion
