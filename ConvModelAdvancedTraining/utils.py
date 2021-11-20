@@ -23,7 +23,7 @@ import torchvision.transforms as transforms
 
 import os
 ## This is for gradcam and taken from https://github.com/jacobgil/pytorch-grad-cam
-os.system('pip install pytorch_grad_cam')
+os.system('pip install grad-cam')
 from pytorch_grad_cam import GradCAM, \
     ScoreCAM, \
     GradCAMPlusPlus, \
