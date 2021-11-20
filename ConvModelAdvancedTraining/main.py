@@ -111,7 +111,7 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training
   for epoch in range(start_epoch, start_epoch+epoch):
       train(epoch, net, optimizer, trainloader, device, criterion, train_losses, train_accuracy)
       test(epoch, net, optimizer, testloader, device, criterion, test_losses, test_accuracy)
-      scheduler.step()
+      scheduler.step(test_accuracy[-1])
   print('/n ============================ Training and Testing Performance ======================== /n')
   exp_metrics[description] = (train_accuracy,train_losses,test_accuracy,test_losses)
   
