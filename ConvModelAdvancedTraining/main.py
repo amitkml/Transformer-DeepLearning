@@ -11,11 +11,11 @@ import torchvision
 import torchvision.transforms as transforms
 # from utils import progress_bar
 from tqdm import tqdm
-
+from torch.optim.lr_scheduler import ReduceLROnPlateau
+from torch.optim.lr_scheduler import StepLR,OneCycleLR
 from models import *
 from utils import *
 
-os.system('pip install albumentations')
 
 best_acc = 0  # best test accuracy
 start_epoch = 0  # start from epoch 0 or last checkpoint epoch
@@ -24,7 +24,7 @@ def get_lr(optimizer):
     for param_group in optimizer.param_groups:
         return param_group['lr']
 
-def run_experiments(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training', epoch =20):
+def run_experiments(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training', epoch =20, lr_scheduler='ReduceLROnPlateau'):
   
  # https://stackoverflow.com/questions/45823991/argparse-in-ipython-notebook-unrecognized-arguments-f
 #   parser = argparse.ArgumentParser()
@@ -39,7 +39,10 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training
   start_epoch = 0
   print("Got all parser argument")
   # Data
-  print('==> Preparing data..')
+  print('====================> Preparing data................')
+  
+  train_transforms, test_transforms = data_albumentations()
+  
   transform_train = transforms.Compose([
       transforms.RandomCrop(32, padding=4),
       transforms.RandomHorizontalFlip(),
@@ -53,20 +56,22 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training
   ])
 
   trainset = torchvision.datasets.CIFAR10(
-  root='./data', train=True, download=True, transform=transform_train)
+  root='./data', train=True, download=True, transform=train_transforms)
   trainloader = torch.utils.data.DataLoader(
       trainset, batch_size=128, shuffle=True, num_workers=2)
 
   testset = torchvision.datasets.CIFAR10(
-      root='./data', train=False, download=True, transform=transform_test)
+      root='./data', train=False, download=True, transform=test_transforms)
   testloader = torch.utils.data.DataLoader(  
       testset, batch_size=100, shuffle=False, num_workers=2)
+  
+  mean,std = get_mean_and_std(trainset)
 
   classes = ('plane', 'car', 'bird', 'cat', 'deer',
              'dog', 'frog', 'horse', 'ship', 'truck')
 
 # Model
-  print('==> Building model..')
+  print('=======================> Building model...............')
   train_losses = []
   test_losses = []
   train_accuracy = []
@@ -77,7 +82,8 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training
   net = net.to(device)
   
   model_summary(net, device, input_size=(3, 32, 32))
-      
+  
+  print('/n ======================================================================= /n')    
   exp_metrics={}
   if device == 'cuda':
       net = torch.nn.DataParallel(net)
@@ -95,16 +101,20 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training
   criterion = nn.CrossEntropyLoss()
   optimizer = optim.SGD(net.parameters(), lr=lr,
                         momentum=0.9, weight_decay=5e-4)
-  scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200)
+  # x = 2 if i > 100 else 1 if i < 100 else 0
+  scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200) if lr_scheduler == 'CosineAnnealingLR' else ReduceLROnPlateau(optimizer, mode='max', factor=0.1, patience=0, verbose=True) if  lr_scheduler == 'ReduceLROnPlateau' else OneCycleLR(optimizer, max_lr=lr,epochs=epoch,steps_per_epoch=len(trainloader))
+  # scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200)
   for epoch in range(start_epoch, start_epoch+epoch):
       train(epoch, net, optimizer, trainloader, device, criterion, train_losses, train_accuracy)
       test(epoch, net, optimizer, testloader, device, criterion, test_losses, test_accuracy)
       scheduler.step()
-  
+  print('/n ============================ Training and Testing Performance ======================== /n')
   exp_metrics[description] = (train_accuracy,train_losses,test_accuracy,test_losses)
   
+  print('/n ======================== Class Level Accuracy ============================== /n')
   class_level_accuracy(net, testloader, device)
   
+  print('/n ======================== Random Misclassified Images ========================== /n')
   wrong_predictions(testloader, use_cuda, net)
   
 # Training
