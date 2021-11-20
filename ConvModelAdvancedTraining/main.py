@@ -15,7 +15,10 @@ from torch.optim.lr_scheduler import ReduceLROnPlateau
 from torch.optim.lr_scheduler import StepLR,OneCycleLR
 from models import *
 from utils import *
+os.system('pip install -U albumentations')
 
+import albumentations as A
+from albumentations.pytorch.transforms import ToTensorV2
 
 best_acc = 0  # best test accuracy
 start_epoch = 0  # start from epoch 0 or last checkpoint epoch

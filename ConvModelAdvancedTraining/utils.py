@@ -24,7 +24,7 @@ import torchvision.transforms as transforms
 import os
 os.system('pip install torchsummary')
 from torchsummary import summary
-os.system('pip install albumentations')
+os.system('pip install -U albumentations')
 
 import albumentations as A
 from albumentations.pytorch.transforms import ToTensorV2
