@@ -76,7 +76,7 @@ class LResNet(nn.Module):
         self.conv1 = nn.Conv2d(3, 64, kernel_size=3,
                                stride=1, padding=1, bias=False)
         # self.bn1 = nn.BatchNorm2d(64)
-        self.bn1 = nn.LayerNorm(torch.tensor([64, 32, 32])),
+        self.bn1 = nn.LayerNorm(torch.tensor([64, 32, 32]))
         # nn.LayerNorm(torch.tensor([8, 26, 26])),
         self.layer1 = self._make_layer(block, 64, num_blocks[0], stride=1)
         self.layer2 = self._make_layer(block, 128, num_blocks[1], stride=2)
