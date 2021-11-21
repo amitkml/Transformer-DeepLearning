@@ -137,6 +137,114 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training
   print('=============================================================================================================================')  
 
 
+def run_experiments_ln(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training', epoch =40, lr_scheduler='ReduceLROnPlateau'):
+      
+ # https://stackoverflow.com/questions/45823991/argparse-in-ipython-notebook-unrecognized-arguments-f
+#   parser = argparse.ArgumentParser()
+#   parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
+  lr = lr
+  resume = resume
+  epoch = epoch
+#   args = parser.parse_args(args=['--lr', lr, '--resume', 'store_true'])
+  use_cuda = torch.cuda.is_available()
+  device = torch.device("cuda" if use_cuda else "cpu")
+#   best_acc = 0  # best test accuracy
+  start_epoch = 0
+  print("Got all parser argument and starting Training resnet with layer norm")
+  # Data
+  print('================================================> Preparing data................')
+  
+  mean,std = get_mean_and_std()
+
+  train_transforms, test_transforms = data_albumentations(mean, std)
+  
+  transform_train = transforms.Compose([
+      transforms.RandomCrop(32, padding=4),
+      transforms.RandomHorizontalFlip(),
+      transforms.ToTensor(),
+      transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
+    ])
+
+  transform_test = transforms.Compose([
+      transforms.ToTensor(),
+      transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
+  ])
+
+  trainset = torchvision.datasets.CIFAR10(
+  root='./data', train=True, download=True, transform=train_transforms)
+  trainloader = torch.utils.data.DataLoader(
+      trainset, batch_size=128, shuffle=True, num_workers=2)
+
+  testset = torchvision.datasets.CIFAR10(
+      root='./data', train=False, download=True, transform=test_transforms)
+  testloader = torch.utils.data.DataLoader(  
+      testset, batch_size=100, shuffle=False, num_workers=2)
+  
+
+  classes = ('plane', 'car', 'bird', 'cat', 'deer',
+             'dog', 'frog', 'horse', 'ship', 'truck')
+
+# Model
+  print('===========================================================> Building model...............')
+  train_losses = []
+  test_losses = []
+  train_accuracy = []
+  test_accuracy = []
+  
+# net = VGG('VGG19')
+  net = LResNet18()
+  net = net.to(device)
+  
+  model_summary(net, device, input_size=(3, 32, 32))
+  
+  print('/n ================================================================================================== /n')
+  print('/n ================================================================================================== /n')    
+  exp_metrics={}
+  if device == 'cuda':
+      net = torch.nn.DataParallel(net)
+      cudnn.benchmark = True
+
+  if resume:
+    # Load checkpoint.
+    print('==> Resuming from checkpoint..')
+    assert os.path.isdir('checkpoint'), 'Error: no checkpoint directory found!'
+    checkpoint = torch.load('./checkpoint/ckpt.pth')
+    net.load_state_dict(checkpoint['net'])
+    best_acc = checkpoint['acc']
+    start_epoch = checkpoint['epoch']
+
+  criterion = nn.CrossEntropyLoss()
+  optimizer = optim.SGD(net.parameters(), lr=lr,
+                        momentum=0.9, weight_decay=5e-4)
+  # x = 2 if i > 100 else 1 if i < 100 else 0
+  scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200) if lr_scheduler == 'CosineAnnealingLR' else ReduceLROnPlateau(optimizer, mode='max', factor=0.1, patience=0, verbose=True) if  lr_scheduler == 'ReduceLROnPlateau' else OneCycleLR(optimizer, max_lr=lr,epochs=epoch,steps_per_epoch=len(trainloader))
+  # scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=200)
+  for epoch in range(start_epoch, start_epoch+epoch):
+      train(epoch, net, optimizer, trainloader, device, criterion, train_losses, train_accuracy)
+      test(epoch, net, optimizer, testloader, device, criterion, test_losses, test_accuracy)
+      scheduler.step(test_accuracy[-1])
+  print('============================================================ Training and Testing Performance ================================')
+  print('===========================================================================================================================')  
+  exp_metrics[description] = (train_accuracy,train_losses,test_accuracy,test_losses)
+  plot_metrics(exp_metrics[description])
+  
+  print('============================================================= Class Level Accuracy ==========================================')
+  print('============================================================================================================================= ')  
+  class_level_accuracy(net, testloader, device)
+  
+  print('============================================== Random Misclassified Images ==================================================')
+  wrong_images = wrong_predictions(testloader, use_cuda, net)
+  print('=============================================================================================================================')  
+  
+  print('============================================== Grdadcam Misclassified Images ==================================================')
+
+  classes = ['plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
+  target_layers = ["layer1","layer2","layer3","layer4"]
+  gradcam_output, probs, predicted_classes = generate_gradcam(wrong_images[:20], net, target_layers,device)
+  plot_gradcam(gradcam_output, target_layers, classes, (3, 32, 32),predicted_classes, wrong_images[:20])
+  print('=============================================================================================================================')  
+  
+
 def train(epoch, model, optimizer, trainloader, device, criterion, train_losses, train_accuracy):
     criterion = criterion
     device = device

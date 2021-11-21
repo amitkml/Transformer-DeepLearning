@@ -68,9 +68,9 @@ class BasicBlock(nn.Module):
 #         return out
 
 
-class ResNet(nn.Module):
+class LResNet(nn.Module):
     def __init__(self, block, num_blocks, num_classes=10):
-        super(ResNet, self).__init__()
+        super(LResNet, self).__init__()
         self.in_planes = 64
 
         self.conv1 = nn.Conv2d(3, 64, kernel_size=3,
@@ -104,12 +104,12 @@ class ResNet(nn.Module):
         return out
 
 
-def ResNet18():
-    return ResNet(BasicBlock, [2, 2, 2, 2])
+def LResNet18():
+    return LResNet(BasicBlock, [2, 2, 2, 2])
 
 
-def ResNet34():
-    return ResNet(BasicBlock, [3, 4, 6, 3])
+def LResNet34():
+    return LResNet(BasicBlock, [3, 4, 6, 3])
 
 
 # def ResNet50():
@@ -125,7 +125,7 @@ def ResNet34():
 
 
 def test():
-    net = ResNet18()
+    net = LResNet18()
     y = net(torch.randn(1, 3, 32, 32))
     print(y.size())
 
