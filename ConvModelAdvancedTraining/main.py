@@ -15,6 +15,8 @@ from torch.optim.lr_scheduler import ReduceLROnPlateau
 from torch.optim.lr_scheduler import StepLR,OneCycleLR
 from models import *
 from utils import *
+from gradcam import *
+
 os.system('pip install -U albumentations')
 
 import albumentations as A
@@ -113,19 +115,28 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training
       train(epoch, net, optimizer, trainloader, device, criterion, train_losses, train_accuracy)
       test(epoch, net, optimizer, testloader, device, criterion, test_losses, test_accuracy)
       scheduler.step(test_accuracy[-1])
-  print('/n ========================================================= Training and Testing Performance ================================ /n')
-  print('/n =========================================================================================================================== /n')  
+  print('============================================================ Training and Testing Performance ================================')
+  print('===========================================================================================================================')  
   exp_metrics[description] = (train_accuracy,train_losses,test_accuracy,test_losses)
   plot_metrics(exp_metrics[description])
   
-  print('/n ============================================================= Class Level Accuracy ========================================== /n')
-  print('/n ============================================================================================================================= /n')  
+  print('============================================================= Class Level Accuracy ==========================================')
+  print('============================================================================================================================= ')  
   class_level_accuracy(net, testloader, device)
   
-  print('/n ============================================== Random Misclassified Images ================================================== /n')
-  wrong_predictions(testloader, use_cuda, net)
-  print('/n ============================================================================================================================= /n')  
-# Training
+  print('============================================== Random Misclassified Images ==================================================')
+  wrong_images = wrong_predictions(testloader, use_cuda, net)
+  print('=============================================================================================================================')  
+  
+  print('============================================== Grdadcam Misclassified Images ==================================================')
+
+  classes = ['plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
+  target_layers = ["conv1","conv2","conv3","conv4"]
+  gradcam_output, probs, predicted_classes = generate_gradcam(wrong_images[:20], net, target_layers,device)
+  plot_gradcam(gradcam_output, target_layers, classes, (3, 32, 32),predicted_classes, wrong_images[:20])
+  print('=============================================================================================================================')  
+
+
 def train(epoch, model, optimizer, trainloader, device, criterion, train_losses, train_accuracy):
     criterion = criterion
     device = device

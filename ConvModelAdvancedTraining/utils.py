@@ -20,7 +20,8 @@ import torch.backends.cudnn as cudnn
 import torch.nn.functional as F
 import torch.optim as optim
 import torchvision.transforms as transforms
-
+from models import *
+from gradcam import *
 import os
 ## This is for gradcam and taken from https://github.com/jacobgil/pytorch-grad-cam
 os.system('pip install grad-cam')
@@ -297,8 +298,19 @@ def wrong_predictions(test_loader,
                   ax.imshow(img)  
           
             plt.show()
+        return wrong_predictions
             
 def model_summary(model, device, input_size=(3, 32, 32)):
     print(model)
     summary(model,input_size)
-    
+
+def unnormalize(img):
+    mean = (0.49139968, 0.48215841, 0.44653091)
+    std = (0.24703223, 0.24348513, 0.26158784)
+#   mean,std = calculate_mean_std("CIFAR")
+    img = img.cpu().numpy().astype(dtype=np.float32)
+  
+    for i in range(img.shape[0]):
+        img[i] = (img[i]*std[i])+mean[i]
+  
+    return np.transpose(img, (1,2,0))
