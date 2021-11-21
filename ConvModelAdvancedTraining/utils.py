@@ -23,19 +23,20 @@ import torchvision.transforms as transforms
 from models import *
 from gradcam import *
 import os
+
 ## This is for gradcam and taken from https://github.com/jacobgil/pytorch-grad-cam
-os.system('pip install grad-cam')
-from pytorch_grad_cam import GradCAM, \
-    ScoreCAM, \
-    GradCAMPlusPlus, \
-    AblationCAM, \
-    XGradCAM, \
-    EigenCAM, \
-    EigenGradCAM, \
-    LayerCAM, \
-    FullGrad
-from pytorch_grad_cam.utils.image import show_cam_on_image, \
-    preprocess_image
+# os.system('pip install grad-cam')
+# from pytorch_grad_cam import GradCAM, \
+#     ScoreCAM, \
+#     GradCAMPlusPlus, \
+#     AblationCAM, \
+#     XGradCAM, \
+#     EigenCAM, \
+#     EigenGradCAM, \
+#     LayerCAM, \
+#     FullGrad
+# from pytorch_grad_cam.utils.image import show_cam_on_image, \
+#     preprocess_image
 
 ## this is for displayig model summary
 os.system('pip install torchsummary')
