@@ -131,7 +131,7 @@ def run_experiments(lr = 0.1, resume = '', description = 'PyTorchCIFAR10Training
   print('============================================== Grdadcam Misclassified Images ==================================================')
 
   classes = ['plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
-  target_layers = ["conv1","conv2","conv3","conv4"]
+  target_layers = ["layer1","layer2","layer3","layer4"]
   gradcam_output, probs, predicted_classes = generate_gradcam(wrong_images[:20], net, target_layers,device)
   plot_gradcam(gradcam_output, target_layers, classes, (3, 32, 32),predicted_classes, wrong_images[:20])
   print('=============================================================================================================================')  
