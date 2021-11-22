@@ -11,3 +11,10 @@ This will be a generic repo which will host different pytorch model and associat
 - Python 3.6+
 - PyTorch 1.0+
 
+
+## Training
+''
+model_main.run_experiments_ln()
+
+model_main.run_experiments()
+''
