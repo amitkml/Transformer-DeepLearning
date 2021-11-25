@@ -70,3 +70,21 @@ aug = iaa.CoarseDropout(0.02, size_percent=0.5)
 ```
 
 ![im](https://imgaug.readthedocs.io/en/latest/_images/coarsedropout.jpg)
+
+# Advanced Training Concepts
+
+## Cyclic LR
+Cyclic learning rates (and cyclic momentum, which usually goes hand-in-hand) is a learning rate scheduling technique for (1) faster training of a network and (2) a finer understanding of the optimal learning rate. Cyclic learning rates have an effect on the model training process known somewhat fancifully as "superconvergence".
+
+To apply cyclic learning rate and cyclic momentum to a run, begin by specifying a minimum and maximum learning rate and a minimum and maximum momentum. Over the course of a training run, the learning rate will be inversely scaled from its minimum to its maximum value and then back again, while the inverse will occur with the momentum. At the very end of training the learning rate will be reduced even further, an order of magnitude or two below the minimum learning rate, in order to squeeze out the last bit of convergence.
+The maximum should be the value picked with a learning rate finder procedure, and the minimum value can be ten times lower.
+## OneCycleLR
+Cyclic learning rates (and cyclic momentum, which usually goes hand-in-hand) is a learning rate scheduling technique for (1) faster training of a network and (2) a finer understanding of the optimal learning rate. Cyclic learning rates have an effect on the model training process known somewhat fancifully as "superconvergence".
+
+To apply cyclic learning rate and cyclic momentum to a run, begin by specifying a minimum and maximum learning rate and a minimum and maximum momentum. Over the course of a training run, the learning rate will be inversely scaled from its minimum to its maximum value and then back again, while the inverse will occur with the momentum. At the very end of training the learning rate will be reduced even further, an order of magnitude or two below the minimum learning rate, in order to squeeze out the last bit of convergence.
+The paper suggests the highest batch size value that can be fit into memory to be used as batch size. The author suggests , its reasonable to make combined run with CLR and Cyclic momentum with different values of weight decay to determine learning rate, momentum range and weigh decay simultaneously. The paper suggests to use values like 1e-3, 1e-4, 1e-5 and 0 to start with, if there is no notion of what is correct weight decay value. On the other hand, if we know , say 1e-4 is correct value, paper suggests to try 3 values bisecting the exponent( 3e-4, 1e-4 and 3e-5).
+
+![im](https://miro.medium.com/max/510/1*VaHVbnxikt6KD5-etumSSw.png)
+
+- [Pytprch LR Finder](https://github.com/davidtvs/pytorch-lr-finder)
+- [OneCycleLR](https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.OneCycleLR.html)
