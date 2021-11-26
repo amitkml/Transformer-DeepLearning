@@ -10,7 +10,10 @@ This repo contains all the assignments from the course called EVA conducted by t
 - Regularisation techinques on MNIST
 - Advanced convolutions(depthwise seperable and dialated convolutions) on CIFAR 10 with advanced image augmentation like utout, coarseDropout
 
+
+
 # Transformer-DeepLearning
+
 EVA Transformerbased Deep Learning course. This repo contains all my nlp work and learning. Made public so that others can learn and get benefits.The repo will contain all my project related to NLP learning and vision model deployment using mediapipe.
 
 ## Pytorch Package Hierarchy
