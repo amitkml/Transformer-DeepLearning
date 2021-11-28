@@ -410,7 +410,7 @@ def run_experiments_custom_resnet(start_lr = 1e-3, lrmax = 1, resume = '',
         optimizer = optim.Adam(net.parameters(), lr=lr, weight_decay=5e-4)
   
   pct_start = max_at_epoch/epochs
-  scheduler = OneCycleLR(optimizer=optimizer, max_lr=lrmax, epochs=epochs, steps_per_epoch=len(trainloader),pct_start=pct_start,verbose= True, div_factor=20, final_div_factor =1000)
+  scheduler = OneCycleLR(optimizer=optimizer, max_lr=lrmax, epochs=epochs, steps_per_epoch=len(trainloader),pct_start=pct_start,verbose= True, div_factor=30, final_div_factor =1)
   # scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer,max_lr)
   for epoch in range(start_epoch, start_epoch+epoch):
       train(epoch, net, optimizer, trainloader, device, criterion, train_losses, train_accuracy)

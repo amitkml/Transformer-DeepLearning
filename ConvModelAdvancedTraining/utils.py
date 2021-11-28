@@ -354,7 +354,7 @@ def data_albumentations_customresnet(mean,std, horizontalflip_prob = 0.2,
          A.HorizontalFlip(p=0.5),
          # Cutout
          A.CoarseDropout(
-             max_holes=3,
+             max_holes=1,
              max_height=8,
              max_width=8,
              min_holes=1,
