@@ -335,7 +335,10 @@ def test(epoch, model, optimizer, testloader, device, criterion, test_losses, te
 
 
 
-def run_experiments_custom_resnet(start_lr = 1e-3, lrmax = 1, resume = '', description = 'PyTorchCIFAR10Training', epochs =24, max_at_epoch=5):
+def run_experiments_custom_resnet(start_lr = 1e-3, lrmax = 1, resume = '', 
+                                  description = 'PyTorchCIFAR10Training', 
+                                  epochs =24, max_at_epoch=5,
+                                  IsSGD=True):
       
  # https://stackoverflow.com/questions/45823991/argparse-in-ipython-notebook-unrecognized-arguments-f
 #   parser = argparse.ArgumentParser()
@@ -400,8 +403,11 @@ def run_experiments_custom_resnet(start_lr = 1e-3, lrmax = 1, resume = '', descr
   start_lr = start_lr
   end_lr = lrmax
   criterion = nn.CrossEntropyLoss()
-  optimizer = optim.SGD(net.parameters(), lr=start_lr,
-                        momentum=0.9, weight_decay=5e-4)
+  if IsSGD:
+        optimizer = optim.SGD(net.parameters(), lr=start_lr,
+                                momentum=0.9, weight_decay=5e-4)
+  else:
+        optimizer = optim.Adam(net.parameters(), lr=start_lr, weight_decay=5e-4)
   
   pct_start = max_at_epoch/epochs
   scheduler = OneCycleLR(optimizer=optimizer, max_lr=lrmax, epochs=epochs, steps_per_epoch=len(trainloader),pct_start=pct_start,verbose= True, div_factor=20, final_div_factor =1000)
