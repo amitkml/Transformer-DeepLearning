@@ -407,7 +407,7 @@ def run_experiments_custom_resnet(start_lr = 1e-3, lrmax = 1, resume = '',
         optimizer = optim.SGD(net.parameters(), lr=start_lr,
                                 momentum=0.9, weight_decay=5e-4)
   else:
-        optimizer = optim.Adam(net.parameters(), lr=start_lr, weight_decay=5e-4)
+        optimizer = optim.Adam(net.parameters(), lr=lr, weight_decay=5e-4)
   
   pct_start = max_at_epoch/epochs
   scheduler = OneCycleLR(optimizer=optimizer, max_lr=lrmax, epochs=epochs, steps_per_epoch=len(trainloader),pct_start=pct_start,verbose= True, div_factor=20, final_div_factor =1000)
