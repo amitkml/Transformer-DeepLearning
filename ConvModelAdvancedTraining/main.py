@@ -445,7 +445,7 @@ def run_experiments_custom_resnet(start_lr = 1e-3, lrmax = 1, resume = '',
 def run_experiments_custom_resnet_fc(start_lr = 1e-3, lrmax = 1, max_holes = 4, resume = '', 
                                   description = 'PyTorchCIFAR10Training', 
                                   epochs =24, max_at_epoch=5,
-                                  IsSGD=True):
+                                  IsSGD=True, ShowGradcam=False):
       
  # https://stackoverflow.com/questions/45823991/argparse-in-ipython-notebook-unrecognized-arguments-f
 #   parser = argparse.ArgumentParser()
@@ -544,10 +544,22 @@ def run_experiments_custom_resnet_fc(start_lr = 1e-3, lrmax = 1, max_holes = 4, 
   layer3 = net.layer3[0]
   
   target_layers = [layer1,layer2,layer3]
-  gradcam_output, probs, predicted_classes = generate_gradcam(wrong_images[:20], net, target_layers,device)
-  plot_gradcam(gradcam_output, target_layers, classes, (3, 32, 32),predicted_classes, wrong_images[:20])
-  print('===========================================================================================================================================================') 
+  print('===========================================================================================================================================================')
+  if ShowGradcam:
+        gradcam_output, probs, predicted_classes = generate_gradcam(wrong_images[:20], net, target_layers,device)
+        plot_gradcam(gradcam_output, target_layers, classes, (3, 32, 32),predicted_classes, wrong_images[:20])
+  else:
+        return (wrong_images, net, target_layers,device)
   
+  # return (wrong_images, net, target_layers,device)
+  
+def get_gradcam_details(wrong_images,net, target_layers,device,
+                          classes = ['plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']):
+      
+      print('====================================================== Attempting Gradcam =================================================================================')
+      gradcam_output, probs, predicted_classes = generate_gradcam(wrong_images[:20], net, target_layers,device)
+      plot_gradcam(gradcam_output, target_layers, classes, (3, 32, 32),predicted_classes, wrong_images[:20])
+      
 def get_model():
   
       net = ResNetCustomFC()
