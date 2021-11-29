@@ -1,6 +1,7 @@
 '''Train CIFAR10 with PyTorch.'''
 import argparse
 import os
+from models.resnet_custom_fc import CustomResNetFC
 
 import torch
 import torch.backends.cudnn as cudnn
@@ -432,9 +433,115 @@ def run_experiments_custom_resnet(start_lr = 1e-3, lrmax = 1, resume = '',
   print('============================================== Grdadcam Misclassified Images =============================================================================')
 
   classes = ['plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
-  layer1 = net.layer1[-1]
-  layer2 = net.layer2[-1]
-  layer3 = net.layer3[-1]
+  layer1 = net.layer1[1]
+  layer2 = net.layer2[1]
+  layer3 = net.layer3[1]
+  
+  target_layers = [layer1,layer2,layer3]
+  gradcam_output, probs, predicted_classes = generate_gradcam(wrong_images[:20], net, target_layers,device)
+  plot_gradcam(gradcam_output, target_layers, classes, (3, 32, 32),predicted_classes, wrong_images[:20])
+  print('===========================================================================================================================================================')  
+  
+def run_experiments_custom_resnet_fc(start_lr = 1e-3, lrmax = 1, resume = '', 
+                                  description = 'PyTorchCIFAR10Training', 
+                                  epochs =24, max_at_epoch=5,
+                                  IsSGD=True):
+      
+ # https://stackoverflow.com/questions/45823991/argparse-in-ipython-notebook-unrecognized-arguments-f
+#   parser = argparse.ArgumentParser()
+#   parser = argparse.ArgumentParser(description='PyTorch CIFAR10 Training')
+  lr = start_lr
+  resume = resume
+  epoch = epochs
+  use_cuda = torch.cuda.is_available()
+  device = torch.device("cuda" if use_cuda else "cpu")
+#   best_acc = 0  # best test accuracy
+  start_epoch = 0
+  print("Got all parser argument")
+  # Data
+  print('================================================> Preparing data................')
+  
+  mean,std = get_mean_and_std()
+
+  train_transforms, test_transforms = data_albumentations_customresnet(mean, std)
+  
+  trainset = torchvision.datasets.CIFAR10(
+  root='./data', train=True, download=True, transform=train_transforms)
+  trainloader = torch.utils.data.DataLoader(
+      trainset, batch_size=512, shuffle=True, num_workers=1)
+
+  testset = torchvision.datasets.CIFAR10(
+      root='./data', train=False, download=True, transform=test_transforms)
+  testloader = torch.utils.data.DataLoader(  
+      testset, batch_size=512, shuffle=False, num_workers=1)
+  
+
+  classes = ('plane', 'car', 'bird', 'cat', 'deer',
+             'dog', 'frog', 'horse', 'ship', 'truck')
+
+# Model
+  print('===========================================================> Building model Custom resnet.=========================================..............')
+  train_losses = []
+  test_losses = []
+  train_accuracy = []
+  test_accuracy = []
+  
+# net = VGG('VGG19')
+  net = CustomResNetFC()
+  net = net.to(device)
+  
+  model_summary(net, device, input_size=(3, 32, 32))
+  
+  print('/n =============================================================================================================================================== /n')
+  print('/n =============================================================================================================================================== /n')    
+  exp_metrics={}
+  if device == 'cuda':
+      net = torch.nn.DataParallel(net)
+      cudnn.benchmark = True
+
+  if resume:
+    # Load checkpoint.
+    print('==> Resuming from checkpoint..')
+    assert os.path.isdir('checkpoint'), 'Error: no checkpoint directory found!'
+    checkpoint = torch.load('./checkpoint/ckpt.pth')
+    net.load_state_dict(checkpoint['net'])
+    best_acc = checkpoint['acc']
+    start_epoch = checkpoint['epoch']
+  start_lr = start_lr
+  end_lr = lrmax
+  criterion = nn.CrossEntropyLoss()
+  if IsSGD:
+        optimizer = optim.SGD(net.parameters(), lr=start_lr,
+                                momentum=0.9, weight_decay=5e-4)
+  else:
+        optimizer = optim.Adam(net.parameters(), lr=lr, weight_decay=5e-4)
+  
+  pct_start = max_at_epoch/epochs
+  scheduler = OneCycleLR(optimizer=optimizer, max_lr=lrmax, epochs=epochs, steps_per_epoch=len(trainloader),pct_start=pct_start,verbose= True, div_factor=30, final_div_factor =1)
+  # scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer,max_lr)
+  for epoch in range(start_epoch, start_epoch+epoch):
+      train(epoch, net, optimizer, trainloader, device, criterion, train_losses, train_accuracy)
+      test(epoch, net, optimizer, testloader, device, criterion, test_losses, test_accuracy)
+      scheduler.step()
+  print('============================================================ Training and Testing Performance ==============================================================')
+  print('============================================================================================================================================================')  
+  exp_metrics[description] = (train_accuracy,train_losses,test_accuracy,test_losses)
+  plot_metrics(exp_metrics[description])
+  
+  print('============================================================= Class Level Accuracy =========================================================================')
+  print('=========================================================================================================================================================== ')  
+  class_level_accuracy(net, testloader, device)
+  
+  print('============================================== Random Misclassified Images ================================================================================')
+  wrong_images = wrong_predictions(testloader, use_cuda, net)
+  print('==========================================================================================================================================================')  
+  
+  print('============================================== Grdadcam Misclassified Images =============================================================================')
+
+  classes = ['plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
+  layer1 = net.layer1[1]
+  layer2 = net.layer2[1]
+  layer3 = net.layer3[1]
   
   target_layers = [layer1,layer2,layer3]
   gradcam_output, probs, predicted_classes = generate_gradcam(wrong_images[:20], net, target_layers,device)
