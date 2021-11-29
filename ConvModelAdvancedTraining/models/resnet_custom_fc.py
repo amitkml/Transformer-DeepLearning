@@ -21,7 +21,7 @@ class BasicBlock(nn.Module):
         return out
         
 class CustomResNetFC(nn.Module):
-    def __init__(self, block,   dropout= 0.05, num_classes=10):
+    def __init__(self, block,   dropout= 0.0005, num_classes=10):
         super(CustomResNetFC, self).__init__()
         
         self.prep_layer = nn.Sequential(
