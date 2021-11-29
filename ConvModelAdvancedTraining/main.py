@@ -442,7 +442,7 @@ def run_experiments_custom_resnet(start_lr = 1e-3, lrmax = 1, resume = '',
   plot_gradcam(gradcam_output, target_layers, classes, (3, 32, 32),predicted_classes, wrong_images[:20])
   print('===========================================================================================================================================================')  
   
-def run_experiments_custom_resnet_fc(start_lr = 1e-3, lrmax = 1, resume = '', 
+def run_experiments_custom_resnet_fc(start_lr = 1e-3, lrmax = 1, max_holes = 4, resume = '', 
                                   description = 'PyTorchCIFAR10Training', 
                                   epochs =24, max_at_epoch=5,
                                   IsSGD=True):
@@ -463,7 +463,7 @@ def run_experiments_custom_resnet_fc(start_lr = 1e-3, lrmax = 1, resume = '',
   
   mean,std = get_mean_and_std()
 
-  train_transforms, test_transforms = data_albumentations_customresnet_fc(mean, std)
+  train_transforms, test_transforms = data_albumentations_customresnet_fc(mean, std,max_holes = 4)
   
   trainset = torchvision.datasets.CIFAR10(
   root='./data', train=True, download=True, transform=train_transforms)

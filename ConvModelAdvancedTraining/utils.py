@@ -373,7 +373,7 @@ def data_albumentations_customresnet(mean,std, horizontalflip_prob = 0.2,
 
     return lambda img:train_transforms(image=np.array(img))["image"],lambda img:test_transforms(image=np.array(img))["image"]
 
-def data_albumentations_customresnet_fc(mean,std, horizontalflip_prob = 0.2,
+def data_albumentations_customresnet_fc(mean,std, max_holes=4, horizontalflip_prob = 0.2,
                         rotate_limit = 15,
                         shiftscalerotate_prob = 0.25,
                         num_holes = 2,
