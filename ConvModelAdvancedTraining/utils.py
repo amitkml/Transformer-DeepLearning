@@ -372,3 +372,60 @@ def data_albumentations_customresnet(mean,std, horizontalflip_prob = 0.2,
                                  ToTensorV2()])
 
     return lambda img:train_transforms(image=np.array(img))["image"],lambda img:test_transforms(image=np.array(img))["image"]
+
+def data_albumentations_customresnet_fc(mean,std, horizontalflip_prob = 0.2,
+                        rotate_limit = 15,
+                        shiftscalerotate_prob = 0.25,
+                        num_holes = 2,
+                        random_crop_p = 0.2,
+                        cutout_prob = 0.8,
+                        PAD=4):
+    # Calculate mean and std deviation for cifar dataset
+    
+    
+    # Train Phase transformations
+    # train_transforms = A.Compose([
+    #                               A.PadIfNeeded(min_height=32+PAD, min_width=32 + PAD, border_mode=cv2.BORDER_CONSTANT, value=(mean),always_apply=True),
+    #                               A.RandomCrop(height=32, width=32, always_apply=True),
+    #                               A.HorizontalFlip(p=horizontalflip_prob),
+    #                               # A.Cutout(max_h_size=16, max_w_size=8),
+    #                               A.ShiftScaleRotate(shift_limit=0.1, scale_limit=0.1, rotate_limit=rotate_limit, p=shiftscalerotate_prob),
+    #                               A.CoarseDropout(max_holes=num_holes,min_holes = 1, max_height=8, max_width=8, 
+    #                               p=cutout_prob,fill_value=tuple([x * 255.0 for x in mean]),
+    #                               min_height=8, min_width=8),
+    #                               A.Normalize(mean=mean, std=std,always_apply=True),
+    #                               ToTensorV2()
+    #                             ])
+
+    train_transforms = A.Compose(
+        [
+         # RandomCrop with Padding
+         A.Sequential(
+             [
+              A.PadIfNeeded(min_height=32+PAD, min_width=32+PAD, always_apply=True),
+              A.RandomCrop(width=32, height=32, p=1),
+              ],
+              p=1,
+              ),
+         # Horizontal Flipping
+         A.HorizontalFlip(p=0.5),
+         # Cutout
+         A.CoarseDropout(
+             max_holes=4,
+             max_height=8,
+             max_width=8,
+             min_holes=1,
+             min_height=8,
+             min_width=8,
+             fill_value=tuple((x * 255.0 for x in mean)),
+             p=0.5,
+             ),
+            A.Normalize(mean=mean, std=std, always_apply=True),
+         ToTensorV2(),
+        ]
+    )        
+    # Test Phase transformations
+    test_transforms = A.Compose([A.Normalize(mean=mean, std=std, always_apply=True),
+                                 ToTensorV2()])
+
+    return lambda img:train_transforms(image=np.array(img))["image"],lambda img:test_transforms(image=np.array(img))["image"]

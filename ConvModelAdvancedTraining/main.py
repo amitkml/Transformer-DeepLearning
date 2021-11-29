@@ -463,7 +463,7 @@ def run_experiments_custom_resnet_fc(start_lr = 1e-3, lrmax = 1, resume = '',
   
   mean,std = get_mean_and_std()
 
-  train_transforms, test_transforms = data_albumentations_customresnet(mean, std)
+  train_transforms, test_transforms = data_albumentations_customresnet_fc(mean, std)
   
   trainset = torchvision.datasets.CIFAR10(
   root='./data', train=True, download=True, transform=train_transforms)
