@@ -551,6 +551,8 @@ def run_experiments_custom_resnet_fc(start_lr = 1e-3, lrmax = 1, max_holes = 4, 
 def get_model():
   
       net = ResNetCustomFC()
+      use_cuda = torch.cuda.is_available()
+      device = torch.device("cuda" if use_cuda else "cpu")
       net = net.to(device)
       model_summary(net, device, input_size=(3, 32, 32))
       print(net)
