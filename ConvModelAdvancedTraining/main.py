@@ -539,9 +539,9 @@ def run_experiments_custom_resnet_fc(start_lr = 1e-3, lrmax = 1, resume = '',
   print('============================================== Grdadcam Misclassified Images =============================================================================')
 
   classes = ['plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
-  layer1 = net.layer1[1]
-  layer2 = net.layer2[1]
-  layer3 = net.layer3[1]
+  layer1 = net.layer1[0]
+  layer2 = net.layer2[0]
+  layer3 = net.layer3[0]
   
   target_layers = [layer1,layer2,layer3]
   gradcam_output, probs, predicted_classes = generate_gradcam(wrong_images[:20], net, target_layers,device)
