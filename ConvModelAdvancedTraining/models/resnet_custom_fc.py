@@ -98,10 +98,12 @@ class CustomResNetFC(nn.Module):
         out = self.linear(out)
         return out
 
+
+
+def ResNetCustomFC():
+    return CustomResNetFC(BasicBlock)
+
 def testCustomResNetFC():
     net = CustomResNetFC()
     y = net(torch.randn(1, 3, 32, 32))
     print(y.size())
-
-def CustomResNetFC():
-    return CustomResNetFC(BasicBlock)

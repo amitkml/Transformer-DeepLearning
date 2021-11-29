@@ -487,7 +487,7 @@ def run_experiments_custom_resnet_fc(start_lr = 1e-3, lrmax = 1, resume = '',
   test_accuracy = []
   
 # net = VGG('VGG19')
-  net = CustomResNetFC()
+  net = ResNetCustomFC()
   net = net.to(device)
   
   model_summary(net, device, input_size=(3, 32, 32))
