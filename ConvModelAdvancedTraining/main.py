@@ -548,7 +548,8 @@ def run_experiments_custom_resnet_fc(start_lr = 1e-3, lrmax = 1, max_holes = 4, 
   plot_gradcam(gradcam_output, target_layers, classes, (3, 32, 32),predicted_classes, wrong_images[:20])
   print('===========================================================================================================================================================') 
   
-  def get_model():
+def get_model():
+  
       net = ResNetCustomFC()
       net = net.to(device)
       model_summary(net, device, input_size=(3, 32, 32))
