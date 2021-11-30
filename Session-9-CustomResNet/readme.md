@@ -83,6 +83,8 @@ Estimated Total Size (MB): 32.28
 ```
 ## Model Training and Test Result
 
+![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-9-CustomResNet/Model_performance.JPG?raw=True)
+
 ```
 Adjusting learning rate of group 0 to 6.0909e-04.
 
@@ -291,3 +293,16 @@ train_transforms = A.Compose(
     test_transforms = A.Compose([A.Normalize(mean=mean, std=std, always_apply=True),
                                  ToTensorV2()])
 ```
+## Model Class wise Accuracy
+
+- Accuracy of airplane : 85 %
+- Accuracy of automobile : 100 %
+- Accuracy of  bird : 100 %
+- Accuracy of   cat : 68 %
+- Accuracy of  deer : 92 %
+- Accuracy of   dog : 66 %
+- Accuracy of  frog : 81 %
+- Accuracy of horse : 91 %
+- Accuracy of  ship : 97 %
+- Accuracy of truck : 100 %
+[im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-9-CustomResNet/misclassified_images.JPG?raw=true)
