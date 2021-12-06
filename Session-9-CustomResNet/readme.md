@@ -29,6 +29,11 @@
 - Target Accuracy: 90% (93% for late submission or double scores). 
 NO score if your code is not modular. Your collab must be importing your GitHub package, and then just running the model. I should be able to find the custom_resnet.py model in your GitHub repo that you'd be training. 
 
+# Team meber
+- Amit Kayal
+- Swathi Aireddy
+
+
 # Solution Details
 
 ## Model Summary
