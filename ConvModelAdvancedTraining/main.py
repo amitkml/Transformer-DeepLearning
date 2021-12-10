@@ -23,6 +23,8 @@ os.system('pip install -U albumentations')
 
 import albumentations as A
 from albumentations.pytorch.transforms import ToTensorV2
+from prepare_tiny-imagenet-200 import *
+
 
 best_acc = 0  # best test accuracy
 start_epoch = 0  # start from epoch 0 or last checkpoint epoch
@@ -563,6 +565,19 @@ def get_gradcam_details(wrong_images,net, target_layers,device,
 def get_model():
   
       net = ResNetCustomFC()
+      use_cuda = torch.cuda.is_available()
+      device = torch.device("cuda" if use_cuda else "cpu")
+      net = net.to(device)
+      model_summary(net, device, input_size=(3, 32, 32))
+      print(net)
+      return net
+
+def get_tiny_imagenet_model():
+      '''
+      This function will instantiate a model with the resnet18 architecture and return the model
+      '''
+      
+      net = TinyImageNetResNet18()
       use_cuda = torch.cuda.is_available()
       device = torch.device("cuda" if use_cuda else "cpu")
       net = net.to(device)
