@@ -62,79 +62,79 @@ def format_val():
 	print("Cleaning up: %s" % val_images_dir)
 	print("Formatting val done")
 
-def split_train_test():
-	split_quota = 0.7
-	print("Splitting Train+Val into %s-%s" % (split_quota*100, (1 - split_quota)*100))
-	base_dir = "%s/tiny-imagenet-200" % os.getcwd()
-	train_dir = "%s/train" % base_dir
-	val_dir = "%s/val" % base_dir
-	fwnind = "%s/wnids.txt" % base_dir
-	wninds = set()
-	with open(fwnind, "r") as f:
-		for wnind in f:
-			wninds.add(wnind.strip())
-	assert(len(wninds) == 200)
-	new_train_dir = "%s/new_train" % base_dir
-	new_test_dir = "%s/new_test" % base_dir
-	os.mkdir(new_train_dir)
-	os.mkdir(new_test_dir)
-	total_ntrain = 0
-	total_ntest = 0
-	for wnind in wninds:
-		wnind_ntrain = 0
-		wnind_ntest = 0
-		new_train_wnind_dir = "%s/%s" % (new_train_dir, wnind)
-		new_test_wnind_dir = "%s/%s" % (new_test_dir, wnind)
-		os.mkdir(new_train_wnind_dir)
-		os.mkdir(new_test_wnind_dir)
-		os.mkdir(new_train_wnind_dir+"/images")
-		os.mkdir(new_test_wnind_dir+"/images")
-		new_train_wnind_boxes = "%s/%s_boxes.txt" % (new_train_wnind_dir, wnind)
-		f_ntrain = open(new_train_wnind_boxes, "w")
-		new_test_wnind_boxes = "%s/%s_boxes.txt" % (new_test_wnind_dir, wnind)
-		f_ntest = open(new_test_wnind_boxes, "w")
-		dirs = [train_dir, val_dir]
-		for wdir in dirs:
-			wnind_dir = "%s/%s" % (wdir, wnind)
-			# wnind_boxes = "%s/%s_boxes.txt" % (wnind_dir, wnind)
-			# imgs = []
-			# with open(wnind_boxes, "r") as f:
-			# 	for line in f:
-			# 		line = line.strip().split()
-			# 		img_name = line[0]
-			# 		boxes = '\t'.join(line[1:])
-			# 		imgs.append((img_name, boxes))
-			# print("[Old] wind: %s - #: %s" % (wnind, len(imgs)))
-			# shuffle(imgs)
-			split_n = floor(len(imgs)*0.7)
-			train_imgs = imgs[:split_n]
-			test_imgs = imgs[split_n:]
-			for img_name, box in train_imgs:
-				source = "%s/images/%s" % (wnind_dir, img_name)
-				dst = "%s/images/%s" % (new_train_wnind_dir, img_name)
-				os.system("cp %s %s" % (source, dst))
-				f_ntrain.write("%s\t%s\n" % (img_name, box))
-				wnind_ntrain += 1
-			for img_name, box in test_imgs:
-				source = "%s/images/%s" % (wnind_dir, img_name)
-				dst = "%s/images/%s" % (new_test_wnind_dir, img_name)
-				os.system("cp %s %s" % (source, dst))
-				f_ntest.write("%s\t%s\n" % (img_name, box))
-				wnind_ntest += 1
-		f_ntrain.close()
-		f_ntest.close()
-		print("[New] wnind: %s - #train: %s - #test: %s" % (wnind, wnind_ntrain,
-															wnind_ntest))
-		total_ntrain += wnind_ntrain
-		total_ntest += wnind_ntest
-	print("[New] #train: %s - #test: %s" % (total_ntrain, total_ntest))
-	os.system("rm -rf %s" % train_dir)
-	os.system("rm -rf %s" % val_dir)
-	print("Cleaning up: %s" % train_dir)
-	print("Cleaning up: %s" % val_dir)
-	print("Created new train data at: %s" % new_train_dir)
-	print("Cleaning new test data at: %s" % new_test_dir)
-	print("Splitting dataset done")
+# def split_train_test():
+# 	split_quota = 0.7
+# 	print("Splitting Train+Val into %s-%s" % (split_quota*100, (1 - split_quota)*100))
+# 	base_dir = "%s/tiny-imagenet-200" % os.getcwd()
+# 	train_dir = "%s/train" % base_dir
+# 	val_dir = "%s/val" % base_dir
+# 	fwnind = "%s/wnids.txt" % base_dir
+# 	wninds = set()
+# 	with open(fwnind, "r") as f:
+# 		for wnind in f:
+# 			wninds.add(wnind.strip())
+# 	assert(len(wninds) == 200)
+# 	new_train_dir = "%s/new_train" % base_dir
+# 	new_test_dir = "%s/new_test" % base_dir
+# 	os.mkdir(new_train_dir)
+# 	os.mkdir(new_test_dir)
+# 	total_ntrain = 0
+# 	total_ntest = 0
+# 	for wnind in wninds:
+# 		wnind_ntrain = 0
+# 		wnind_ntest = 0
+# 		new_train_wnind_dir = "%s/%s" % (new_train_dir, wnind)
+# 		new_test_wnind_dir = "%s/%s" % (new_test_dir, wnind)
+# 		os.mkdir(new_train_wnind_dir)
+# 		os.mkdir(new_test_wnind_dir)
+# 		os.mkdir(new_train_wnind_dir+"/images")
+# 		os.mkdir(new_test_wnind_dir+"/images")
+# 		new_train_wnind_boxes = "%s/%s_boxes.txt" % (new_train_wnind_dir, wnind)
+# 		f_ntrain = open(new_train_wnind_boxes, "w")
+# 		new_test_wnind_boxes = "%s/%s_boxes.txt" % (new_test_wnind_dir, wnind)
+# 		f_ntest = open(new_test_wnind_boxes, "w")
+# 		dirs = [train_dir, val_dir]
+# 		for wdir in dirs:
+# 			wnind_dir = "%s/%s" % (wdir, wnind)
+# 			# wnind_boxes = "%s/%s_boxes.txt" % (wnind_dir, wnind)
+# 			# imgs = []
+# 			# with open(wnind_boxes, "r") as f:
+# 			# 	for line in f:
+# 			# 		line = line.strip().split()
+# 			# 		img_name = line[0]
+# 			# 		boxes = '\t'.join(line[1:])
+# 			# 		imgs.append((img_name, boxes))
+# 			# print("[Old] wind: %s - #: %s" % (wnind, len(imgs)))
+# 			# shuffle(imgs)
+# 			split_n = floor(len(imgs)*0.7)
+# 			train_imgs = imgs[:split_n]
+# 			test_imgs = imgs[split_n:]
+# 			for img_name, box in train_imgs:
+# 				source = "%s/images/%s" % (wnind_dir, img_name)
+# 				dst = "%s/images/%s" % (new_train_wnind_dir, img_name)
+# 				os.system("cp %s %s" % (source, dst))
+# 				f_ntrain.write("%s\t%s\n" % (img_name, box))
+# 				wnind_ntrain += 1
+# 			for img_name, box in test_imgs:
+# 				source = "%s/images/%s" % (wnind_dir, img_name)
+# 				dst = "%s/images/%s" % (new_test_wnind_dir, img_name)
+# 				os.system("cp %s %s" % (source, dst))
+# 				f_ntest.write("%s\t%s\n" % (img_name, box))
+# 				wnind_ntest += 1
+# 		f_ntrain.close()
+# 		f_ntest.close()
+# 		print("[New] wnind: %s - #train: %s - #test: %s" % (wnind, wnind_ntrain,
+# 															wnind_ntest))
+# 		total_ntrain += wnind_ntrain
+# 		total_ntest += wnind_ntest
+# 	print("[New] #train: %s - #test: %s" % (total_ntrain, total_ntest))
+# 	os.system("rm -rf %s" % train_dir)
+# 	os.system("rm -rf %s" % val_dir)
+# 	print("Cleaning up: %s" % train_dir)
+# 	print("Cleaning up: %s" % val_dir)
+# 	print("Created new train data at: %s" % new_train_dir)
+# 	print("Cleaning new test data at: %s" % new_test_dir)
+# 	print("Splitting dataset done")
  
  # Functions to display single or a batch of sample images
 def imshow(img):

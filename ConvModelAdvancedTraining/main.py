@@ -562,15 +562,29 @@ def get_gradcam_details(wrong_images,net, target_layers,device,
       gradcam_output, probs, predicted_classes = generate_gradcam(wrong_images[:20], net, target_layers,device)
       plot_gradcam(gradcam_output, target_layers, classes, (3, 32, 32),predicted_classes, wrong_images[:20])
       
-def get_model():
-  
-      net = ResNetCustomFC()
+def get_model(type = 'ResNetCustomFC'):
       use_cuda = torch.cuda.is_available()
       device = torch.device("cuda" if use_cuda else "cpu")
+
+      if type == 'ResNetCustomFC':
+            net = ResNetCustomFC()
+            net = net.to(device)
+            return net
+      else if type == 'resnet18':
+            net = TinyImageNetResNet18()
+            net = net.to(device)
+            return net
+      else:
+            print('Invalid model type')
+            return None
+      # net = ResNetCustomFC()
+      # use_cuda = torch.cuda.is_available()
+      # device = torch.device("cuda" if use_cuda else "cpu")
       net = net.to(device)
       model_summary(net, device, input_size=(3, 32, 32))
       print(net)
       return net
+
 
 def get_tiny_imagenet_model():
       '''
