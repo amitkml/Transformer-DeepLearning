@@ -3,6 +3,14 @@ import urllib.request
 import zipfile
 from random import shuffle
 from math import floor
+import cv2
+import torch
+import matplotlib.pyplot as plt
+import numpy as np
+from torch.utils.data import DataLoader, TensorDataset, Dataset
+from torchvision.utils import make_grid
+from torchvision import transforms as T
+
 
 def download_dataset():
 	print('Beginning dataset download with urllib2')
@@ -42,14 +50,14 @@ def format_val():
 		val_wnind_images_dir = "%s/images" % val_wnind_dir
 		os.mkdir(val_wnind_dir)
 		os.mkdir(val_wnind_images_dir)
-		wnind_boxes = "%s/%s_boxes.txt" % (val_wnind_dir, wnind)
-		f = open(wnind_boxes, "w")
+		# wnind_boxes = "%s/%s_boxes.txt" % (val_wnind_dir, wnind)
+		# f = open(wnind_boxes, "w")
 		for img_name, box in entries:
 			source = "%s/%s" % (val_images_dir, img_name)
 			dst = "%s/%s" % (val_wnind_images_dir, img_name)
 			os.system("cp %s %s" % (source, dst))
 			f.write("%s\t%s\n" % (img_name, box))
-		f.close()
+		# f.close()
 	os.system("rm -rf %s" % val_images_dir)
 	print("Cleaning up: %s" % val_images_dir)
 	print("Formatting val done")
@@ -127,3 +135,22 @@ def split_train_test():
 	print("Created new train data at: %s" % new_train_dir)
 	print("Cleaning new test data at: %s" % new_test_dir)
 	print("Splitting dataset done")
+ 
+ # Functions to display single or a batch of sample images
+def imshow(img):
+    npimg = img.numpy()
+    plt.imshow(np.transpose(npimg, (1, 2, 0)))
+    plt.show()
+    
+def show_batch(dataloader):
+    dataiter = iter(dataloader)
+    images, labels = dataiter.next()    
+    imshow(make_grid(images)) # Using Torchvision.utils make_grid function
+    
+def show_image(dataloader):
+    dataiter = iter(dataloader)
+    images, labels = dataiter.next()
+    random_num = randint(0, len(images)-1)
+    imshow(images[random_num])
+    label = labels[random_num]
+    print(f'Label: {label}, Shape: {images[random_num].shape}')
