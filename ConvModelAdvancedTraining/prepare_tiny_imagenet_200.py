@@ -56,7 +56,7 @@ def format_val():
 			source = "%s/%s" % (val_images_dir, img_name)
 			dst = "%s/%s" % (val_wnind_images_dir, img_name)
 			os.system("cp %s %s" % (source, dst))
-			f.write("%s\t%s\n" % (img_name, box))
+			# f.write("%s\t%s\n" % (img_name, box))
 		# f.close()
 	os.system("rm -rf %s" % val_images_dir)
 	print("Cleaning up: %s" % val_images_dir)
@@ -96,16 +96,16 @@ def split_train_test():
 		dirs = [train_dir, val_dir]
 		for wdir in dirs:
 			wnind_dir = "%s/%s" % (wdir, wnind)
-			wnind_boxes = "%s/%s_boxes.txt" % (wnind_dir, wnind)
-			imgs = []
-			with open(wnind_boxes, "r") as f:
-				for line in f:
-					line = line.strip().split()
-					img_name = line[0]
-					boxes = '\t'.join(line[1:])
-					imgs.append((img_name, boxes))
-			print("[Old] wind: %s - #: %s" % (wnind, len(imgs)))
-			shuffle(imgs)
+			# wnind_boxes = "%s/%s_boxes.txt" % (wnind_dir, wnind)
+			# imgs = []
+			# with open(wnind_boxes, "r") as f:
+			# 	for line in f:
+			# 		line = line.strip().split()
+			# 		img_name = line[0]
+			# 		boxes = '\t'.join(line[1:])
+			# 		imgs.append((img_name, boxes))
+			# print("[Old] wind: %s - #: %s" % (wnind, len(imgs)))
+			# shuffle(imgs)
 			split_n = floor(len(imgs)*0.7)
 			train_imgs = imgs[:split_n]
 			test_imgs = imgs[split_n:]
