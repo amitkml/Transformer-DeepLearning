@@ -570,7 +570,7 @@ def get_model(type = 'ResNetCustomFC'):
             net = ResNetCustomFC()
             net = net.to(device)
             return net
-      else if type == 'resnet18':
+      elif type == 'resnet18':
             net = TinyImageNetResNet18()
             net = net.to(device)
             return net
