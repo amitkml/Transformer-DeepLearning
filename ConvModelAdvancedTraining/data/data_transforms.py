@@ -1,3 +1,4 @@
+import os
 ## this is for image augmentation and taken from albumentations
 os.system('pip install -U albumentations')
 
