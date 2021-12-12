@@ -1,7 +1,10 @@
 import os
 ## this is for image augmentation and taken from albumentations
+# os.system('pip install -U albumentations')
 os.system('pip install -U albumentations')
-
+from torchvision import datasets
+import albumentations as A
+from albumentations.pytorch.transforms import ToTensorV2
 
 from albumentations import (
 	Compose,
@@ -12,7 +15,7 @@ from albumentations import (
     RGBShift,
     Rotate
 )
-from albumentations.pytorch import ToTensor
+# from albumentations.pytorch import ToTensor
 import numpy as np
 import torchvision.transforms as transforms
 
@@ -39,7 +42,7 @@ def albumentations_transforms(p=1.0, is_train=False):
 			max_pixel_value=255.0,
 			p=1.0
 		),
-		ToTensor()
+		ToTensorV2()
 	])
 	data_transforms = Compose(transforms_list, p=p)
 	return lambda img: data_transforms(image=np.array(img))["image"]
