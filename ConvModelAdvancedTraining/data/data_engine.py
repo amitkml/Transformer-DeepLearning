@@ -2,8 +2,21 @@ import torch
 import torchvision
 
 from .data_transforms import albumentations_transforms, torch_transforms
-from utils import has_cuda, imshow
+from utils import has_cuda, imshow, unnormalize
+import torch.nn as nn
+import torch.nn.init as init
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+import os
 
+def imshow_detais(img, title, numpy_conversion=True):
+	img = unnormalize(img)
+	# npimg = img.numpy()
+	fig = plt.figure(figsize=(15,7))
+	plt.imshow(np.transpose(img, (1, 2, 0)))
+	plt.title(title)
+ 
 class DataEngine(object):
 
 	classes = ["%s" % i for i in range(200)]
@@ -68,5 +81,5 @@ class DataEngine(object):
 					break
 				if j not in index:
 					index.append(j)
-		imshow(torchvision.utils.make_grid(images[index],
+		imshow_detais(torchvision.utils.make_grid(images[index],
 				nrow=num_img, scale_each=True), "Sample train data")
