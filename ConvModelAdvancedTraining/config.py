@@ -15,9 +15,9 @@ class ModelConfig(object):
 		self.lr = 0.001
 		self.momentum = 0.9
 		self.epochs = 15
-		self.train_data_path = "/content/data/tiny-imagenet-200/train"
-		self.test_data_path = "/content/data/tiny-imagenet-200/val"
-		self.final_test_data_path = "/content/data/tiny-imagenet-200/new_val"
+		self.train_data_path = "/content/tiny-imagenet-200/train"
+		self.test_data_path = "/content/tiny-imagenet-200/val"
+		self.final_test_data_path = "/content/tiny-imagenet-200/new_val"
 
 	def print_config(self):
 		print("Model Parameters:")
