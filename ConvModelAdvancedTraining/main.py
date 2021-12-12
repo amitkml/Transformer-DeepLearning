@@ -23,7 +23,7 @@ os.system('pip install -U albumentations')
 
 import albumentations as A
 from albumentations.pytorch.transforms import ToTensorV2
-from prepare_tiny_imagenet_200 import *
+from data.prepare_tiny_imagenet_200 import *
 
 
 best_acc = 0  # best test accuracy
