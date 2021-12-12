@@ -415,9 +415,12 @@ def init_seed(args):
 def show_model_summary(model, input_size):
 	print(summary(model, input_size=input_size))
 
-def imshow(img, title):
+def imshow(img, title, numpy_conversion=True):
 	img = unnormalize(img)
-	npimg = img.numpy()
+    if numpy_conversion:
+            img = img.numpy()
+    else:
+        pass
 	fig = plt.figure(figsize=(15,7))
 	plt.imshow(np.transpose(npimg, (1, 2, 0)))
 	plt.title(title)
