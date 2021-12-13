@@ -1,13 +1,13 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from utils import denormalize
+from utils import *
 
 def plot_images(img_data, classes, img_name):
   figure = plt.figure(figsize=(10, 10))
   
   num_of_images = len(img_data)
   for index in range(1, num_of_images + 1):
-      img = denormalize(img_data[index-1]["img"])  # unnormalize
+      img = unnormalize(img_data[index-1]["img"])  # unnormalize
       plt.subplot(5, 5, index)
       plt.axis('off')
       plt.imshow(np.transpose(img.cpu().numpy(), (1, 2, 0)))
