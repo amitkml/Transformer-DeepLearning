@@ -3,7 +3,7 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 
-from .final_gradcam import ShowGradCam
+from final_gradcam import ShowGradCam
 from utils import denormalize
 
 class VisualizeCam(object):
