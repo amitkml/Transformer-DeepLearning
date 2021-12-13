@@ -1,7 +1,7 @@
 import torch
 import torchvision
 
-from .data_transforms import albumentations_transforms, torch_transforms
+from data_transforms import albumentations_transforms, torch_transforms
 from utils import has_cuda, imshow, unnormalize
 import torch.nn as nn
 import torch.nn.init as init
