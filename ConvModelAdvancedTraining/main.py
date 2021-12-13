@@ -744,8 +744,9 @@ def train_model_validate(model,
                 lr = 0.01,
                 max_lr = 0.02,
                 epochs = 30,
-                criterion = nn.CrossEntropyLoss(),
+                criterion = nn.CrossEntropyLoss()
                 ):
+  
   l1_decay = model_config_data.l1_decay
   l2_decay = model_config_data.l2_decay
   criterion = criterion
@@ -755,13 +756,11 @@ def train_model_validate(model,
                        pct_start=10/epochs)
   test_losses, train_losses, test_accs, train_accs = [], [], [], []
   misclassified_imgs, correct_imgs = [], []
-  lr_trend = []
+  lr_trend = []  
   for epoch in range(epochs):
-    lr_trend.append(optimizer.param_groups[0]['lr'])
-    print(f"EPOCH: {epoch+1} (LR: {lr_trend[-1]:0.6f})")
-    train_model(model, device, data.train_loader, criterion, optimizer, epoch,
-            l1_decay,l2_decay, train_losses, train_accs, scheduler)
-    test_model(model, epoch, device, data.test_loader, criterion, data.classes, test_losses,
-           test_accs, misclassified_imgs, correct_imgs, False)
-    
-    return test_losses, train_losses, test_accs, train_accs, misclassified_imgs, correct_imgs, lr_trend
+          lr_trend.append(optimizer.param_groups[0]['lr'])
+          print(f"EPOCH: {epoch+1} (LR: {lr_trend[-1]:0.6f})")
+          train_model(model, device, data.train_loader, criterion, optimizer, epoch,l1_decay,l2_decay, train_losses, train_accs, scheduler)
+          test_model(model, epoch, device, data.test_loader, criterion, data.classes, test_losses, test_accs, misclassified_imgs, correct_imgs, False)
+                          
+  return test_losses, train_losses, test_accs, train_accs, misclassified_imgs, correct_imgs, lr_trend
