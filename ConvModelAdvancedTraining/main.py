@@ -598,3 +598,170 @@ def get_tiny_imagenet_model():
       model_summary(net, device, input_size=(3, 32, 32))
       print(net)
       return net
+    
+def train_model(model, device, train_loader, criterion, optimizer, epoch,
+          l1_decay, l2_decay, train_losses, train_accs, scheduler=None):
+  model.train()
+  pbar = tqdm(train_loader)
+  correct = 0
+  processed = 0
+  avg_loss = 0
+  for batch_idx, (data, target) in enumerate(pbar):
+    # get samples
+    data, target = data.to(device), target.to(device)
+
+    # Init
+    optimizer.zero_grad()
+    # In PyTorch, we need to set the gradients to zero before starting to do backpropragation because PyTorch accumulates the gradients on subsequent backward passes. 
+    # Because of this, when you start your training loop, ideally you should zero out the gradients so that you do the parameter update correctly.
+
+    # Predict
+    y_pred = model(data)
+
+    # Calculate loss
+    loss = criterion(y_pred, target)
+    if l1_decay > 0:
+      l1_loss = 0
+      for param in model.parameters():
+        l1_loss += torch.norm(param,1)
+      loss += l1_decay * l1_loss
+    if l2_decay > 0:
+      l2_loss = 0
+      for param in model.parameters():
+        l2_loss += torch.norm(param,2)
+      loss += l2_decay * l2_loss
+
+    # Backpropagation
+    loss.backward()
+    optimizer.step()
+    if scheduler:
+      scheduler.step()
+
+    # Update pbar-tqdm
+    pred = y_pred.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
+    correct += pred.eq(target.view_as(pred)).sum().item()
+    processed += len(data)
+    avg_loss += loss.item()
+
+    pbar_str = f'Loss={loss.item():0.5f} Batch_id={batch_idx} Accuracy={100*correct/processed:0.2f}'
+    if l1_decay > 0:
+      pbar_str = f'L1_loss={l1_loss.item():0.3f} %s' % (pbar_str)
+    if l2_decay > 0:
+      pbar_str = f'L2_loss={l2_loss.item():0.3f} %s' % (pbar_str)
+
+    pbar.set_description(desc= pbar_str)
+
+  avg_loss /= len(train_loader)
+  avg_acc = 100*correct/processed
+  train_accs.append(avg_acc)
+  train_losses.append(avg_loss)
+  
+
+
+def test_model(model, epoch, device, test_loader, criterion, classes, test_losses, test_accs,
+         misclassified_imgs, correct_imgs, is_last_epoch):
+    model.eval()
+    test_loss = 0
+    correct = 0
+    global best_acc
+    with torch.no_grad():
+        for data, target in test_loader:
+            data, target = data.to(device), target.to(device)
+            output = model(data)
+            test_loss +=criterion(output, target).item()  # sum up batch loss
+            pred = output.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
+            is_correct = pred.eq(target.view_as(pred))
+            if is_last_epoch:
+              misclassified_inds = (is_correct==0).nonzero()[:,0]
+              for mis_ind in misclassified_inds:
+                if len(misclassified_imgs) == 25:
+                  break
+                misclassified_imgs.append({
+                    "target": target[mis_ind].cpu().numpy(),
+                    "pred": pred[mis_ind][0].cpu().numpy(),
+                    "img": data[mis_ind]
+                })
+              
+              correct_inds = (is_correct==1).nonzero()[:,0]
+              for ind in correct_inds:
+                if len(correct_imgs) == 25:
+                  break
+                correct_imgs.append({
+                    "target": target[ind].cpu().numpy(),
+                    "pred": pred[ind][0].cpu().numpy(),
+                    "img": data[ind]
+                })
+            correct += is_correct.sum().item()
+
+    test_loss /= len(test_loader)
+    test_losses.append(test_loss)
+    
+    test_acc = 100. * correct / len(test_loader.dataset)
+    test_accs.append(test_acc)
+    if test_acc > best_acc:
+          print('Saving..')
+          state = {
+            'net': model.state_dict(),
+            'acc': test_accs,
+            'epoch': epoch
+            }
+          if not os.path.isdir('checkpoint'):
+            os.mkdir('checkpoint')  # create checkpoint directory
+          torch.save(state, './checkpoint/tiny-imagenetckpt.t7')  # save checkpoint
+          best_acc = test_acc                           
+
+    if test_acc >= 90.0:
+        classwise_acc(model, device, test_loader, classes)
+
+    print('Test set: Average loss: {:.4f}, Accuracy: {}/{} ({:.2f}%)\n'.format(
+        test_loss, correct, len(test_loader.dataset), test_acc))
+
+def classwise_acc(model, device, test_loader, classes):
+    class_correct = list(0. for i in range(10))
+    class_total = list(0. for i in range(10))
+    with torch.no_grad():
+        for images, labels in test_loader:
+            images, labels = images.to(device), labels.to(device)
+            outputs = model(images)
+            _, predicted = torch.max(outputs, 1)
+            c = (predicted == labels).squeeze()
+            for i in range(4):
+                label = labels[i]
+                class_correct[label] += c[i].item()
+                class_total[label] += 1
+    
+    # print class-wise test accuracies
+    print()
+    for i in range(10):
+      print('Accuracy of %5s : %2d %%' % (
+          classes[i], 100 * class_correct[i] / class_total[i]))
+    print()
+    
+def train_model(model,
+                data,
+                device,
+                model_config_data,
+                lr = 0.01,
+                max_lr = 0.02,
+                epochs = 30,
+                criterion = nn.CrossEntropyLoss(),
+                ):
+  l1_decay = model_config_data.l1_decay
+  l2_decay = model_config_data.l2_decay
+  criterion = criterion
+  optimizer = optim.SGD(model.parameters(), lr=lr, momentum=model_config_data.momentum)
+  scheduler = OneCycleLR(optimizer, max_lr=max_lr, steps_per_epoch=len(data.train_loader),
+                       epochs=epochs, div_factor=10, final_div_factor=10,
+                       pct_start=10/epochs)
+  test_losses, train_losses, test_accs, train_accs = [], [], [], []
+  misclassified_imgs, correct_imgs = [], []
+  lr_trend = []
+  for epoch in range(epochs):
+    lr_trend.append(optimizer.param_groups[0]['lr'])
+    print(f"EPOCH: {epoch+1} (LR: {lr_trend[-1]:0.6f})")
+    train_model(model, device, data.train_loader, criterion, optimizer, epoch,
+            l1_decay,l2_decay, train_losses, train_accs, scheduler)
+    test_model(model, epoch, device, data.test_loader, criterion, data.classes, test_losses,
+           test_accs, misclassified_imgs, correct_imgs, False)
+    
+    return test_losses, train_losses, test_accs, train_accs, misclassified_imgs, correct_imgs, lr_trend
