@@ -737,7 +737,7 @@ def classwise_acc(model, device, test_loader, classes):
           classes[i], 100 * class_correct[i] / class_total[i]))
     print()
     
-def train_model(model,
+def train_model_validate(model,
                 data,
                 device,
                 model_config_data,
