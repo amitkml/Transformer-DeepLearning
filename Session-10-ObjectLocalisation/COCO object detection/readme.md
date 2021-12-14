@@ -26,7 +26,7 @@ The Input to this coco schema analysis is a text file which contains the followi
 
    c) Width of Bounding Box
 
-   d) Height of Bounding B
+   d) Height of Bounding Box
 
 ```
 id: 0, height: 330, width: 1093, bbox:[69, 464, 312, 175],
