@@ -1,4 +1,4 @@
-# Coco dataset  Bounding Box Optimal sizing Assugnment
+# Coco dataset  Bounding Box Optimal sizing Assignment
 
 1. Download the coco schema file. Learn how COCO object detection dataset's schema is. This file has the same schema. You'll need to discover what those number are. 
 2. Identify these things for this dataset:
