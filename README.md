@@ -10,7 +10,8 @@ This repo contains all the assignments from the course called EVA conducted by t
 - Regularisation techinques on MNIST
 - Advanced convolutions(depthwise seperable and dialated convolutions) on CIFAR 10 with advanced image augmentation like utout, coarseDropout
 
-
+# PyTorch vs TensorFlow in 2022
+- [PyTorch vs TensorFlow in 2022](https://www.assemblyai.com/blog/pytorch-vs-tensorflow-in-2022/)
 
 # Transformer-DeepLearning
 
