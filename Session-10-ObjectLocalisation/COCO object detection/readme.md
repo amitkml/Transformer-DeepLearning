@@ -59,8 +59,8 @@ X,y to normalized x,y to log(normalized x,y) to kmeans. So kmeans centre to anti
 
 ### Anchox Box Plotting for 3 cluster
 
-![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-10-ObjectLocalisation/COCO%20object%20detection/Anchor_boxes_3.jpg? raw=true)
+![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-10-ObjectLocalisation/COCO%20object%20detection/Anchor_boxes_3.jpg?raw=true)
 
 ### Anchox Box Plotting for 5 cluster
 
-![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-10-ObjectLocalisation/COCO%20object%20detection/Anchor_boxes_5.jpg? raw=true)
+![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-10-ObjectLocalisation/COCO%20object%20detection/Anchor_boxes_5.jpg?raw=true)
