@@ -53,4 +53,14 @@ id: 66, height: 728, width: 581, bbox:[98, 247, 134, 314],
 id: 14, height: 763, width: 715, bbox:[297, 108, 300, 368],
 id: 28, height: 612, width: 770, bbox:[2, 214, 388, 223],
 ```
+## Anchor Box Plotting
 
+X,y to normalized x,y to log(normalized x,y) to kmeans. So kmeans centre to antilog to plot on an axis of 0 to 1. Plotting all anchor boxes with common centre makes them look comparable. To make that common centre as origin some adjustments are done.
+
+### Anchox Box Plotting for 3 cluster
+
+[im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-10-ObjectLocalisation/COCO%20object%20detection/Anchor_boxes_3.jpg? raw=true)
+
+### Anchox Box Plotting for 5 cluster
+
+[im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-10-ObjectLocalisation/COCO%20object%20detection/Anchor_boxes_5.jpg? raw=true)
