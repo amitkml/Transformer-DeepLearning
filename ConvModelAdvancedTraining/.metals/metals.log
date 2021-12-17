@@ -1,0 +1,5 @@
+[0m2021.12.16 22:53:40 INFO  Started: Metals version 0.10.9 in workspace 'C:\Users\akayal\OneDrive - CSG Systems Inc\github-personal\Transformer-DeepLearning\Transformer-DeepLearning\ConvModelAdvancedTraining' for client Visual Studio Code 1.63.0.[0m
+[0m2021.12.16 22:53:41 INFO  time: initialize in 0.6s[0m
+[0m2021.12.16 22:53:41 WARN  Build server is not auto-connectable.[0m
+[0m2021.12.16 22:53:41 WARN  no build tool detected in workspace 'C:\Users\akayal\OneDrive - CSG Systems Inc\github-personal\Transformer-DeepLearning\Transformer-DeepLearning\ConvModelAdvancedTraining'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. [0m
+[0m2021.12.16 22:59:01 INFO  shutting down Metals[0m
