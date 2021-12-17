@@ -12,6 +12,7 @@ This repo contains all the assignments from the course called EVA conducted by t
 
 # PyTorch vs TensorFlow in 2022
 - [PyTorch vs TensorFlow in 2022](https://www.assemblyai.com/blog/pytorch-vs-tensorflow-in-2022/)
+- [Deep Learning Latest Blog](https://jarvislabs.ai/blog)
 
 # Transformer-DeepLearning
 

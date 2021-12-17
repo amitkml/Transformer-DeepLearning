@@ -55,7 +55,7 @@ id: 28, height: 612, width: 770, bbox:[2, 214, 388, 223],
 ```
 ## Plotting of WCCS and Number of cluster(K)
 
-![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-10-ObjectLocalisation/COCO%20object%20detection/Elbow_Method.jpg?raw=true)
+![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-10-ObjectLocalisation/COCO object detection/Elbow_Method_print.jpg?raw=true)
 
 ## Anchor Box Plotting
 
