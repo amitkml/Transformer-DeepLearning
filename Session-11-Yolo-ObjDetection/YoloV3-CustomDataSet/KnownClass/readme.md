@@ -36,8 +36,8 @@ Model_Training
 -   Changed max_batches to 5000
 -   Changed steps to 4000,4500
 -   Changed the class names in custom.names
--     hardhat
--     vest
--     mask
--   boots
+  - hardhat
+  - vest
+  - mask
+  - boots
 -   Visualization of Batch images - Image Augmentation with YOLO - Bag of Freebies
