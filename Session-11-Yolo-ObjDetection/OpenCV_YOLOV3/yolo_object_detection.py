@@ -69,7 +69,7 @@ class OpenCVYolo:
             cv2.putText(img, label, (x, y + 30), font, 3, color, 3)
 
     # Saving the image
-    cv2.imwrite('output/annotated_yolo_output.jpg', img)
+    cv2.imwrite('output/yolo_output".jpg', img)
     return None
 
 if __name__ == "__main__":
