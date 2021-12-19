@@ -12,6 +12,12 @@
 - Ran this image through the code above
 - Uploaded the annotated image by YOLO OpenCV.
 
+### Sample Output Files
+
+![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-11-Yolo-ObjDetection/OpenCV_YOLOV3/output/bag_scissors_output.png?raw=true)
+
+![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-11-Yolo-ObjDetection/OpenCV_YOLOV3/output/laptop_output.png?raw=true)
+
 ## Assignment-B Yolov3 Object Detection on Custom Dataset
 
 The assignment aim to perform object detection on custom dataset using Yolov3. Custom data included 4 classes : Hardhat, vest, mask, boots.
