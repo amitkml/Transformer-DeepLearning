@@ -23,14 +23,13 @@ The assignment aim to perform object detection on custom dataset using Yolov3. C
 -   follow exact rules to make sure that you can train the model. Steps are explained in the README.md file on github repo link above.
 -   Once additional 100 images are added, train the model
 
-Next,
-
-    Download a very small (~10-30sec) video from youtube which shows the 4 classes.
-    Use ffmpeg to extract frames from the video.
-    Infer on these images using detect.py file.
-    python detect.py --conf-three 0.3 --output output_folder_name
-    Use ffmpeg to convert the files in your output folder to video
-    Upload the video to YouTube.
+Next
+- Download a very small (~10-30sec) video from youtube which shows the 4 classes.
+- Use ffmpeg to extract frames from the video.
+- Infer on these images using detect.py file.
+- python detect.py --conf-three 0.3 --output output_folder_name
+- Use ffmpeg to convert the files in your output folder to video
+- Upload the video to YouTube.
 
 
 Result
