@@ -16,13 +16,14 @@ This Assignment talks about the Spatial Transformer Network. This concept is bas
 4. Then we test the model to find out the accuracy of Spatial Transofrmer
 5. Then we visualize to see the original input and translated output
 
-Implement [EVA7_SpacialTransformers_CIFAR10](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-12-TheDawnOfTransformers/SpacialTransformers/EVA7_SpacialTransformers_CIFAR10.ipynb) for CIFAR10 trained for 50 Epochs. 
+**Implemented [EVA7_SpacialTransformers_CIFAR10](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-12-TheDawnOfTransformers/SpacialTransformers/EVA7_SpacialTransformers_CIFAR10.ipynb) for CIFAR10 trained for 50 Epochs. Readme can be found from [Spatial Transformer Analysis](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-12-TheDawnOfTransformers/SpacialTransformers/readme.md)**
 
 
 ## What is Spatial Transformer?
 
 A  Spatial Transformer Network (STN) is a learnable module that can be  placed in a Convolutional Neural Network (CNN), to increase the spatial  invariance in an efficient manner. Spatial invariance refers to the  invariance of the model towards spatial transformations of images such  as rotation, translation and scaling. Invariance is the ability of the  model to recognize and identify features even when the input is  transformed or slightly modified. Spatial Transformers can be placed  into CNNs to benefit various tasks. One example is image classification.  
 
+**Detailed analysis on VIT been documented into [VIT analysis](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-12-TheDawnOfTransformers/VisionTransformers/readme.md).**
 Suppose the task is to perform classification of handwritten digits,  where the position, size and orientation of the digit in each sample  varies significantly. A spatial transformer crops out, transforms and  scales the region of interest in the sample. Now a CNN can perform the  task of classification.
 
 ![img](https://miro.medium.com/max/1400/1*Mq98rPf11Dk7vxL7OuDZ7A.png)
