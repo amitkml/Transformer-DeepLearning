@@ -12,3 +12,31 @@ Following classes from [this](https://github.com/jeonsworld/ViT-pytorch/blob/mai
 - Attention
 - MLP
 
+**The sequence of the operations in VIT is as follows -**
+
+Input -> CreatePatches -> ClassToken, PatchToEmbed , PositionEmbed -> Transformer -> ClassificationHead -> Output
+
+## Embeddings
+
+This class construct the embeddings from patch, position embeddings. The patch size has been set as 16x16.
+
+```python
+config.patches = ml_collections.ConfigDict({'size': (16, 16)})
+```
+
+After that, we calculate the patch size and no of patch as below.
+
+```python
+patch_size = (img_size[0] // 16 // grid_size[0], img_size[1] // 16 // grid_size[1])
+n_patches = (img_size[0] // 16) * (img_size[1] // 16)
+```
+
+
+
+## Encoder
+
+## Block
+
+## Attention
+
+## MLP
