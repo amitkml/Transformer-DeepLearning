@@ -14,6 +14,10 @@ This repo contains all the assignments from the course called EVA conducted by t
 - [PyTorch vs TensorFlow in 2022](https://www.assemblyai.com/blog/pytorch-vs-tensorflow-in-2022/)
 - [Deep Learning Latest Blog](https://jarvislabs.ai/blog)
 
+# Fullstack Deep Learning
+- [Fullstack Deep Learning](https://fullstackdeeplearning.com/)
+
+
 # Transformer-DeepLearning
 
 EVA Transformerbased Deep Learning course. This repo contains all my nlp work and learning. Made public so that others can learn and get benefits.The repo will contain all my project related to NLP learning and vision model deployment using mediapipe.
