@@ -169,6 +169,13 @@ Today's Training End date-time: 2021-12-25
 
 
 
+![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-11-Yolo-ObjDetection/YoloV3-CustomDataSet/YoloV3/output/7547d3c7b4b526b96dad0d89e.jpeg?raw=true)
+
 ### Inference on Youtube video
 
 Video being uploaded into [Yolo Object Detection](https://youtu.be/0KVU5Bs-bHY)
+
+#  References
+
+- https://github.com/ultralytics/yolov3/wiki/Train-Custom-Data
+- https://github.com/theschoolofai/YoloV3
