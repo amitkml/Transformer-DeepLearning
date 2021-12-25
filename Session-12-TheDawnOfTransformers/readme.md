@@ -23,7 +23,6 @@ This Assignment talks about the Spatial Transformer Network. This concept is bas
 
 A  Spatial Transformer Network (STN) is a learnable module that can be  placed in a Convolutional Neural Network (CNN), to increase the spatial  invariance in an efficient manner. Spatial invariance refers to the  invariance of the model towards spatial transformations of images such  as rotation, translation and scaling. Invariance is the ability of the  model to recognize and identify features even when the input is  transformed or slightly modified. Spatial Transformers can be placed  into CNNs to benefit various tasks. One example is image classification.  
 
-**Detailed analysis on VIT been documented into [VIT analysis](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-12-TheDawnOfTransformers/VisionTransformers/readme.md).**
 Suppose the task is to perform classification of handwritten digits,  where the position, size and orientation of the digit in each sample  varies significantly. A spatial transformer crops out, transforms and  scales the region of interest in the sample. Now a CNN can perform the  task of classification.
 
 ![img](https://miro.medium.com/max/1400/1*Mq98rPf11Dk7vxL7OuDZ7A.png)
@@ -52,6 +51,8 @@ This is due to the fact that the computational complexity of its self-attention 
 ## What is Vision Transformer?
 
 As a first step in this direction, we present the [Vision Transformer](https://arxiv.org/abs/2010.11929) (ViT), a vision model based as closely as possible on the [Transformer](https://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf) architecture. ViT represents an input image as a sequence of image patches, similar to the sequence of word embeddings used when applying Transformers to text, and directly predicts class labels for the image. High level steps are:
+
+**Detailed analysis on VIT been documented into [VIT analysis](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-12-TheDawnOfTransformers/VisionTransformers/readme.md).**
 
 The overall architecture of the vision transformer model is given as follows in a step-by-step manner:
 
