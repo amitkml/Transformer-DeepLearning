@@ -52,9 +52,15 @@ This is due to the fact that the computational complexity of its self-attention 
 
 As a first step in this direction, we present the [Vision Transformer](https://arxiv.org/abs/2010.11929) (ViT), a vision model based as closely as possible on the [Transformer](https://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf) architecture. ViT represents an input image as a sequence of image patches, similar to the sequence of word embeddings used when applying Transformers to text, and directly predicts class labels for the image. High level steps are:
 
-- ViT divides an image into a grid of square patches
-- Each patch is flattened into a single vector by concatenating the channels of all pixels in a patch
-- then linearly projecting it to the desired input dimension by FC Layer
+The overall architecture of the vision transformer model is given as follows in a step-by-step manner:
+
+1. Split an image into patches (fixed sizes)
+2. Flatten the image patches
+3. Create lower-dimensional linear embeddings from these flattened image patches
+4. Include positional embeddings
+5. Feed the sequence as an input to a state-of-the-art transformer encoder
+6. Pre-train the ViT model with image labels, which is then fully supervised on a big dataset
+7. Fine-tune on the downstream dataset for image classification
 
 A few things to remember are:
 
