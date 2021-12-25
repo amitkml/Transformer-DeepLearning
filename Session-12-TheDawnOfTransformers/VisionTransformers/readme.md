@@ -31,6 +31,59 @@ patch_size = (img_size[0] // 16 // grid_size[0], img_size[1] // 16 // grid_size[
 n_patches = (img_size[0] // 16) * (img_size[1] // 16)
 ```
 
+The patch_embeddings gets then populated by conv2d operation where kernel size and stride is being set same as patch size.
+
+```
+self.patch_embeddings = Conv2d(in_channels=in_channels,
+                               out_channels=config.hidden_size,
+                               kernel_size=patch_size,
+                               stride=patch_size)
+```
+
+The position embedding is being set by nn. Parameter()  which**receives the tensor that is passed into it**, and does not do any initial processing such as uniformization. The size is being set by number if patch and hidden size 768.
+
+```
+self.position_embeddings = nn.Parameter(torch.zeros(1, n_patches+1, config.hidden_size))
+```
+
+The cls token then set as per hidden size which is set 768. The shape of cls_token is torch.Size([1, 1, 768])
+
+```
+self.cls_token = nn.Parameter(torch.zeros(1, 1, config.hidden_size))
+```
+
+Let’s now understand how the forward function is being designed.
+
+- The token size is being set based on input shape length.
+
+```
+cls_tokens = self.cls_token.expand(B, -1, -1)
+```
+
+- Input x then being sent to self.patch embedding to generate embedding.
+- Output from self.patch_embeddings then gets flatten
+- Transpose is being done by transpose(-1, -2)
+- we then concat cls_token with x
+- embedding then sets by adding output x with position embedding
+- This embedding then passes through dropout.
+
+```
+   def forward(self, x):
+        B = x.shape[0]
+        cls_tokens = self.cls_token.expand(B, -1, -1)
+
+        if self.hybrid:
+            x = self.hybrid_model(x)
+        x = self.patch_embeddings(x)
+        x = x.flatten(2)
+        x = x.transpose(-1, -2)
+        x = torch.cat((cls_tokens, x), dim=1)
+
+        embeddings = x + self.position_embeddings
+        embeddings = self.dropout(embeddings)
+        return embeddings
+```
+
 
 
 ## Encoder
