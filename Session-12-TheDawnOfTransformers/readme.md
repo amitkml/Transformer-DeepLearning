@@ -38,11 +38,13 @@ A Spatial Transformer Network consists of 3 main components:
 
 # Vision Transformer
 
+**Detailed analysis on VIT been documented into [VIT analysis](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-12-TheDawnOfTransformers/VisionTransformers/readme.md).**
+
 ## Transformers in Computer vision
 
 Now that we know transformers are very interesting, there is still a problem in computer vision applications. Indeed, just like the popular saying “a picture is worth a thousand words,” pictures contain much more information than sentences, so we have to adapt the basic transformer’s architecture to process images effectively. This is what this paper is all about.
 
-![img](https://cdn-images-1.medium.com/max/720/1*JS21YKMUuZ6i24Y9ozpNQQ.gif)Vision transformers’ complexity. Image by [Davide Coccomini](https://towardsdatascience.com/transformers-an-exciting-revolution-from-text-to-videos-dc70a15e617b) reposted with permission.
+![img](https://cdn-images-1.medium.com/max/720/1*JS21YKMUuZ6i24Y9ozpNQQ.gif)
 
 This is due to the fact that the computational complexity of its self-attention is quadratic to image size. Thus exploding the computation time and memory needs. Instead, the researchers replaced this quadratic computational complexity with a linear computational complexity to image size.
 
@@ -52,7 +54,7 @@ This is due to the fact that the computational complexity of its self-attention 
 
 As a first step in this direction, we present the [Vision Transformer](https://arxiv.org/abs/2010.11929) (ViT), a vision model based as closely as possible on the [Transformer](https://papers.nips.cc/paper/7181-attention-is-all-you-need.pdf) architecture. ViT represents an input image as a sequence of image patches, similar to the sequence of word embeddings used when applying Transformers to text, and directly predicts class labels for the image. High level steps are:
 
-**Detailed analysis on VIT been documented into [VIT analysis](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-12-TheDawnOfTransformers/VisionTransformers/readme.md).**
+
 
 The overall architecture of the vision transformer model is given as follows in a step-by-step manner:
 
