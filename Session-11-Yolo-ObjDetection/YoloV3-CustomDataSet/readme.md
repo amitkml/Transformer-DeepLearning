@@ -1,5 +1,9 @@
 # YOLO Training on Custom Data
 
+## Notebook Link
+
+Notebook has been uploaded into [EVA7_Custom_Objects_YoloV3](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-11-Yolo-ObjDetection/YoloV3-CustomDataSet/EVA7_Custom_Objects_YoloV3.ipynb)
+
 ## Data_Collection
 
 The dataset was downloaded from here and additionally 100 images with Creative common license were collected from google for the below classes (25 images per class):
@@ -13,6 +17,15 @@ These 100 images where then merged with the above dataset.
 ## Data_Annotation
 
 Annotation tool from this [repo](https://github.com/miki998/YoloV3_Annotation_Tool) and the installation steps as mentioned in the repo was followed to setup the tool and annotate the images with bounding boxes.
+
+After using a tool like [CVAT](https://github.com/opencv/cvat), [makesense.ai](https://www.makesense.ai/) or [Labelbox](https://labelbox.com/) to label your images, export your labels to **YOLO format**, with one `*.txt` file per image (if no objects in image, no `*.txt` file is required). The `*.txt` file specifications are:
+
+- One row per object
+- Each row is `class x_center y_center width height` format.
+- Box coordinates must be in **normalized xywh** format (from 0 - 1). If your boxes are in pixels, divide `x_center` and `width` by image width, and `y_center` and `height` by image height.
+- Class numbers are zero-indexed (start from 0).
+
+![im](https://user-images.githubusercontent.com/26833433/91506361-c7965000-e886-11ea-8291-c72b98c25eec.jpg)
 
 ![im](https://user-images.githubusercontent.com/17870236/127248717-cf045180-5342-443c-aada-205b1bb18d9b.png)
 
@@ -49,6 +62,14 @@ data
   - mask
   - boots
 - Visualization of Batch images - Image Augmentation with YOLO - Bag of Freebies
+
+```python
+today = date.today()
+print("Today's Training start date-time:", today)
+!python train.py --data data/customdata/custom.data --batch 10 --cache --cfg cfg/yolov3-custom.cfg --epochs 10 
+today = date.today()
+print("Today's Training End date-time:", today)
+```
 
 ### Logs
 
