@@ -125,9 +125,52 @@ cls_tokens = self.cls_token.expand(B, -1, -1)
 
 ## Encoder
 
-The resulting tensor is passeed into a Transformer. In ViT only the Encoder is used, the Transformer encoder module comprises a Multi-Head Self Attention ( MSA ) layer and a Multi-Layer Perceptron (MLP) layer. The encoder combines multiple layers of Transformer Blocks in a sequential manner. The sequence of the operations is as follows -
+The resulting tensor is passeed into a Transformer. In ViT only the Encoder is used, the Transformer encoder module comprises a Multi-Head Self Attention ( MSA ) layer and a Multi-Layer Perceptron (MLP) layer. [Layernorm](https://paperswithcode.com/method/layer-normalization) (**Layer Normalization**) is applied before every block and residual connection after every block.
 
-Input -> TB1 -> TB2 -> .......... -> TBn (n being the number of layers) -> Output
+
+
+The encoder combines multiple layers of Transformer Blocks in a sequential manner. The sequence of the operations is as follows -
+
+Input -> TB1 -> TB2 -> .......... -> TBn (n being the number of layers) -> Output.
+
+![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/images/VIT-Encoder.png?raw=true)
+
+```python
+class Encoder(nn.Module):
+    def __init__(self, config, vis):
+        super(Encoder, self).__init__()
+        self.vis = vis
+        self.layer = nn.ModuleList()
+        self.encoder_norm = LayerNorm(config.hidden_size, eps=1e-6)
+        for _ in range(config.transformer["num_layers"]):
+            layer = Block(config, vis)
+            self.layer.append(copy.deepcopy(layer))
+
+    def forward(self, hidden_states):
+        attn_weights = []
+        for layer_block in self.layer:
+            hidden_states, weights = layer_block(hidden_states)
+            if self.vis:
+                attn_weights.append(weights)
+        encoded = self.encoder_norm(hidden_states)
+        return encoded, attn_weights
+```
+
+As shown in , the Transformer Encoder consists of alternating layers of **Multi-Head Attention** and **MLP** blocks. Also, as shown in , **Layer Norm** is used before every block and residual connections after every block.
+
+The **MLP**, is a Multi-Layer Perceptron block consists of two linear layers and a GELU non-linearity. The outputs from the **MLP** block are again added to the inputs (skip connection) to get the final output from one layer of the **Transformer Encoder**.
+
+A single layer/block of the **Transformer Encoder** can be visualized as below:
+
+![im](https://amaarora.github.io/images/vit-07.png)
+
+Having looked at a single layer inside the **Transformer Encoder**, let’s now zoom out and look at the complete **Transformer Encoder**.
+
+
+
+![fig-6 Transformer Encoder](https://amaarora.github.io/images/vit-06.png)							Transformer Encoder
+
+As can be seen from the image above, a single **Transformer Encoder**  consists of 12 layers. The outputs from the first layer are fed to the  second layer, outputs from the second fed to the third until we get the  final outputs from the 12th layer of the **Transformer Encoder** which are then fed to the **MLP Head** to get class predictions. 
 
 ## Block
 
