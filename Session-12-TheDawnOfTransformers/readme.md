@@ -73,4 +73,18 @@ A few things to remember are:
 - The model is trained using a labeled dataset following a fully-supervised paradigm.
 - It is usually fine-tuned on the downstream dataset for image classification.
 
+
+
+**Figure 1. Vision Transformer inference pipeline.**  
+<img src='https://github.com/hirotomusiker/schwert_colab_data_storage/blob/master/images/vit_demo/vit_input.png?raw=true'>
+
+- Split Image into Patches  
+The input image is split into 14 x 14 vectors with dimension of 768 by Conv2d (k=16x16) with stride=(16, 16). 
+- Add Position Embeddings  
+Learnable position embedding vectors are added to the patch embedding vectors and fed to the transformer encoder. 
+- Transformer Encoder  
+The embedding vectors are encoded by the transformer encoder. The dimension of input and output vectors are the same. Details of the encoder are depicted in Fig. 2.
+- MLP (Classification) Head  
+- The 0th output from the encoder is fed to the MLP head for classification to output the final classification results.
+
 ![im](https://1.bp.blogspot.com/-_mnVfmzvJWc/X8gMzhZ7SkI/AAAAAAAAG24/8gW2AHEoqUQrBwOqjhYB37A7OOjNyKuNgCLcBGAsYHQ/s1600/image1.gif)
