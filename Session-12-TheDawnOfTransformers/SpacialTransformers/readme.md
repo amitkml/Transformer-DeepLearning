@@ -6,6 +6,9 @@ CNNs perform poorly when the input data contains so much variation. One of the s
 
 This gives rise to the concept of Spatial Transformer Networks. In STNs, the transformer module knows where to apply the transformation to properly scale, resize, and crop and image. We can apply the STN module to the input data directly, or even to the feature maps (output of a convolution layer). In simple words, we can say that the spatial transformer module acts as an attention mechanism and knows where to focus on the input data.
 
+
+**Implemented [EVA7_SpacialTransformers_CIFAR10](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-12-TheDawnOfTransformers/SpacialTransformers/EVA7_SpacialTransformers_CIFAR10.ipynb) for CIFAR10 trained for 50 Epochs. Readme can be found from [Spatial Transformer Analysis](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Session-12-TheDawnOfTransformers/SpacialTransformers/readme.md)**
+
 ## Architecture
 
 The architecture of a Spatial Transformer Network is based on three important parts.
