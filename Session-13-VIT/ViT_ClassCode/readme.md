@@ -10,3 +10,4 @@ Here we'll explore and look at the visual transformer source code within the [Ti
 - Feed the sequence as an input to a standard transformer encoder
 - Pretrain the model with image labels (fully supervised on a huge dataset)
 - Finetune on the downstream dataset for image classification
+![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/images/VIT.png?raw=true)
