@@ -11,3 +11,6 @@ Here we'll explore and look at the visual transformer source code within the [Ti
 - Pretrain the model with image labels (fully supervised on a huge dataset)
 - Finetune on the downstream dataset for image classification
 ![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/images/VIT.png?raw=true)
+
+## Patch Embedding
+First point in the above VIT architecture image above is that, the image is split into patches, below is the source code that creates PatchEmbeddings:
