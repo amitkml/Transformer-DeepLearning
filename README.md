@@ -22,6 +22,8 @@ This repo contains all the assignments from the course called EVA conducted by t
 
 # Fullstack Deep Learning
 - [Fullstack Deep Learning](https://fullstackdeeplearning.com/)
+- [Taking FastAI to Production](https://community.wandb.ai/t/taking-fastai-to-production/1705)
+
 
 
 # Transformer-DeepLearning
