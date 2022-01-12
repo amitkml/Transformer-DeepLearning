@@ -15,6 +15,7 @@ This repo contains all the assignments from the course called EVA conducted by t
 - Custom Object detection training in Yolo
 
 ![im](https://1.bp.blogspot.com/-_mnVfmzvJWc/X8gMzhZ7SkI/AAAAAAAAG24/8gW2AHEoqUQrBwOqjhYB37A7OOjNyKuNgCLcBGAsYHQ/s1600/image1.gif)
+# [Deep Learning Do It Yourself!](https://dataflowr.github.io/website/#deep_learning_do_it_yourself)
 
 # PyTorch vs TensorFlow in 2022
 - [PyTorch vs TensorFlow in 2022](https://www.assemblyai.com/blog/pytorch-vs-tensorflow-in-2022/)
