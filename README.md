@@ -2,6 +2,7 @@
 # Transformer Based Deep Learning Projects
 This repo contains all the assignments from the course called EVA conducted by the 'The School Of AI'. Object detection, Object reconisation, segmentation, monocular depth estimation.
 
+![im](https://aws1.discourse-cdn.com/business7/uploads/wandb/optimized/1X/592ff23fa447cd2f78c947a05b7f5a01e1944573_2_686x500.png)
 - Basics of Python 
 - Setting Up Basic Skeleton
 - Pytorch Basics
