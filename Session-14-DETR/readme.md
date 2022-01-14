@@ -14,6 +14,14 @@ Let's first understand Object detection and architectural related concepts for D
 
 Unlike traditional computer vision techniques, DETR approaches object detection as a direct set prediction problem. It consists of a set-based global loss, which forces unique predictions via bipartite matching, and a Transformer encoder-decoder architecture. Given a fixed small set of learned object queries, DETR reasons about the relations of the objects and the global image context to directly output the final set of predictions in parallel. Due to this parallel nature, DETR is very fast and efficient.
 
+- An  image is sent through a pre-trained convolutional backbone (in the paper, the authors use ResNet-50/ResNet-101). Let’s assume we also add a batch dimension. This means that the input to the backbone is a tensor of shape `(batch_size, 3, height, width)`, assuming the image has 3 color channels (RGB).
+- The CNN backbone outputs a new lower-resolution feature map, typically of shape `(batch_size, 2048, height/32, width/32)`.
+- This is then projected to match the hidden dimension of the Transformer of DETR, which is `256` by default, using a `nn.Conv2D` layer. So now, we have a tensor of shape `(batch_size, 256, height/32, width/32)`
+- Next, the feature map is flattened and transposed to obtain a tensor of shape `(batch_size, seq_len, d_model)` = `(batch_size, width/32*height/32, 256)`. So a difference with NLP models is that the sequence length is actually longer than usual, but with a smaller `d_model` (which in NLP is typically 768 or higher).
+- This is sent through the encoder, outputting `encoder_hidden_states` of the same shape (you can consider these as image features). 
+- so-called **object queries** are sent through the decoder. This is a tensor of shape `(batch_size, num_queries, d_model)`, with `num_queries` typically set to 100 and initialized with zeros.
+- Next, two heads are added on top for object detection: a linear layer for classifying each object query into one of the objects or “no object”, and a MLP to predict bounding boxes for each query.
+
 ![im](https://blog.yunfeizhao.com/img/DETR/detailed_detr_architecture.png)
 
 ### Transformer architecture
@@ -134,6 +142,10 @@ First in the DETR model, the image is fed into a CNN such as ResNet-50. A positi
 
 ## Bipartite loss and why?
 
+- The model is trained using a **bipartite matching loss**: so what we actually do is compare the predicted classes + bounding boxes of each of the N = 100 object queries to the ground truth annotations, padded up to the same length N (so if an image only contains 4 objects, 96 annotations will just have a “no object” as class and “no bounding box” as bounding box). 
+
+- The [Hungarian matching algorithm](https://en.wikipedia.org/wiki/Hungarian_algorithm) is used to find an optimal one-to-one mapping of each of the N queries to each of the N annotations. Next, standard cross-entropy (for the classes) and a linear combination of the L1 and [generalized IoU loss](https://giou.stanford.edu/) (for the bounding boxes) are used to optimize the parameters of the model.
+
 Unlike any other Neural network, we also need a loss function for the DETR network as well. But this loss function is very unique by itself. It’s called Bipartite matching loss. Let’s take an example, let’s say we have the image of a kid’s room which contains many items and our job is to identify each object and the location of the object using bounding boxes. TheDETR network outputs the objects and the bounding boxes as well.
 
 1. But does the network predict the centroid of the objects accurately?
@@ -154,6 +166,22 @@ Now let’s say there are no hockey bats and network predict a hocket bat then i
 
 ## Object queries
 
+![im](https://www.guinnessworldrecords.com/Images/lionel-messi-pes-2020_tcm25-598129.jpg)
+
+What are different questions that comes to your mind? let’s say
+
+1. Who is the one with the ball now?
+2. Can you identify the player with red shirt and first from the left?
+3. Who is the Midfielder with Blue T-shirt?
+4. Which country the first player from left belongs to?
+5. Is it an offsite?
+
+Now imagine you are performing the Image identification, Object Detection, Image segmentation kind of solution here using DETR Encoder/Decoder Architecture. The Object queries which are input to the Decoder Self attention layer are type of queries which the network tries to address using the output from the Encoder layer and Attention layer followed by FFN of the Decoder network.
+
+- These input embeddings are learnt positional encodings that the authors refer to as object queries, and similarly to the encoder, they are added to the input of each attention layer.
+- Each object query will look for a particular object in the image.
+- The decoder updates these embeddings through multiple self-attention and encoder-decoder attention layers to output `decoder_hidden_states` of the same shape: `(batch_size, num_queries, d_model)`. 
+
 ## Model Training
 
 ## Model Results
@@ -164,4 +192,6 @@ Now let’s say there are no hockey bats and network predict a hocket bat then i
 - [DETR in Visual](https://blog.yunfeizhao.com/2021/04/04/DETR/)
 - [Hands-on tutorial for DETR](https://colab.research.google.com/github/facebookresearch/detr/blob/colab/notebooks/detr_attention.ipynb#scrollTo=_GQzINI-FBWp)
 - [DETR - End to end object detection with transformers (ECCV2020)](https://www.youtube.com/watch?v=utxbUlo9CyY)
+- [DETR](https://huggingface.co/docs/transformers/model_doc/detr)
+- [DETR: End-to-End Object Detection with Transformers (Paper Explained)](https://www.youtube.com/watch?v=T35ba_VXkMY)
 
