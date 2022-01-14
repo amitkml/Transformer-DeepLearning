@@ -132,7 +132,25 @@ First in the DETR model, the image is fed into a CNN such as ResNet-50. A positi
 
 - Encoder: Each encoder layer has a standard architecture and consists of a multi-head self-attention module and a feed forward network (FFN).
 
-## Bipartite loss, and why we need it
+## Bipartite loss and why?
+
+Unlike any other Neural network, we also need a loss function for the DETR network as well. But this loss function is very unique by itself. It’s called Bipartite matching loss. Let’s take an example, let’s say we have the image of a kid’s room which contains many items and our job is to identify each object and the location of the object using bounding boxes. TheDETR network outputs the objects and the bounding boxes as well.
+
+1. But does the network predict the centroid of the objects accurately?
+2. Does the network predict properly when multiple objects of the same class present (say one small and one big)?
+3. How it predicts when nothing is there in the location
+4. If it can’t predict the location accurately then is the loss going to be very huge and the network can’t learn the centroid s accurately at all?
+
+This is where the Bipartite loss comes handy. It performs the updates as follows
+
+1. The loss takes into account the type of object and not the location
+2. The loss takes into account the number of objects
+3. The loss tries to find out the object which has lowest distance/error
+
+That means let’s say in the room there are 2 cricket bats, 1 foot ball then as long as the network predicts both cricket bats and ball, the job is almost over. The network then needs to match the cricket bats of Ground truth to the prediction which has the lowest distance
+Now let’s say there are no hockey bats and network predict a hocket bat then it has to go and correct itself as it will get a high loss Similarly, when there are no objects in GT and same is predicted by Network then no loss is logged. We can see the mathematics of loss function below and it should be easily understood
+
+[![img](https://github.com/nkanungo/EVA6/raw/main/DETR/images/loss.PNG)](https://github.com/nkanungo/EVA6/blob/main/DETR/images/loss.PNG)
 
 ## Object queries
 
