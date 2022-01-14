@@ -2,6 +2,7 @@
 # Transformer Based Deep Learning Projects
 This repo contains all the assignments from the course called EVA conducted by the 'The School Of AI'. Object detection, Object reconisation, segmentation, monocular depth estimation.
 
+![im](https://aws1.discourse-cdn.com/business7/uploads/wandb/optimized/1X/592ff23fa447cd2f78c947a05b7f5a01e1944573_2_686x500.png)
 - Basics of Python 
 - Setting Up Basic Skeleton
 - Pytorch Basics
@@ -15,6 +16,7 @@ This repo contains all the assignments from the course called EVA conducted by t
 - Custom Object detection training in Yolo
 
 ![im](https://1.bp.blogspot.com/-_mnVfmzvJWc/X8gMzhZ7SkI/AAAAAAAAG24/8gW2AHEoqUQrBwOqjhYB37A7OOjNyKuNgCLcBGAsYHQ/s1600/image1.gif)
+# [Deep Learning Do It Yourself!](https://dataflowr.github.io/website/#deep_learning_do_it_yourself)
 
 # PyTorch vs TensorFlow in 2022
 - [PyTorch vs TensorFlow in 2022](https://www.assemblyai.com/blog/pytorch-vs-tensorflow-in-2022/)
@@ -22,6 +24,8 @@ This repo contains all the assignments from the course called EVA conducted by t
 
 # Fullstack Deep Learning
 - [Fullstack Deep Learning](https://fullstackdeeplearning.com/)
+- [Taking FastAI to Production](https://community.wandb.ai/t/taking-fastai-to-production/1705)
+
 
 
 # Transformer-DeepLearning
