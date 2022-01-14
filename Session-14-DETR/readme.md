@@ -176,6 +176,8 @@ What are different questions that comes to your mind? let’s say
 4. Which country the first player from left belongs to?
 5. Is it an offsite?
 
+**So, an object query is nothing but like different people asking different questions to input images. Since different people will ask different questions, it is expected that they will cover pretty much the whole images.**
+
 Now imagine you are performing the Image identification, Object Detection, Image segmentation kind of solution here using DETR Encoder/Decoder Architecture. The Object queries which are input to the Decoder Self attention layer are type of queries which the network tries to address using the output from the Encoder layer and Attention layer followed by FFN of the Decoder network.
 
 - These input embeddings are learnt positional encodings that the authors refer to as object queries, and similarly to the encoder, they are added to the input of each attention layer.
