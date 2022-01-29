@@ -107,3 +107,13 @@ The paper suggests the highest batch size value that can be fit into memory to b
 
 - [Pytprch LR Finder](https://github.com/davidtvs/pytorch-lr-finder)
 - [OneCycleLR](https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.OneCycleLR.html)
+
+## Fine Grained Image classification
+Fine-grain visual classification (FGVC) refers to the task of distinguishing the categories of the same class. ... Fine-grained visual classification of species or objects of any category is a herculean task for human beings and usually requires extensive domain knowledge to identify the species or objects correctly.
+
+[Fine-Grained Image Classification (FGIC) with B-CNNs](https://wandb.ai/authors/bcnn/reports/Fine-Grained-Image-Classification-FGIC-with-B-CNNs---Vmlldzo0NDQ1Nzc)
+![im](https://api.wandb.ai/files/authors/images/projects/209051/627087f0.png)
+
+![im](https://www.researchgate.net/profile/Zhiwu-Lu-2/publication/318204948/figure/fig1/AS:512607066628096@1499226456148/Fine-grained-classification-vs-general-image-classification-Finegrained-classification.png)
+![im](https://www.inf-cv.uni-jena.de/dbvmedia/de/Research/Fine_grained+Recognition/Goering13_FGC_1Col-0-.png)
+
