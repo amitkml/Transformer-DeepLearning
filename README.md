@@ -117,3 +117,10 @@ Fine-grain visual classification (FGVC) refers to the task of distinguishing the
 ![im](https://www.researchgate.net/profile/Zhiwu-Lu-2/publication/318204948/figure/fig1/AS:512607066628096@1499226456148/Fine-grained-classification-vs-general-image-classification-Finegrained-classification.png)
 ![im](https://www.inf-cv.uni-jena.de/dbvmedia/de/Research/Fine_grained+Recognition/Goering13_FGC_1Col-0-.png)
 
+## Receptive Field
+he Receptive Field (RF) is defined as the size of the region in the input that produces the feature[3]. Basically, it is a measure of association of an output feature (of any layer) to the input region (patch). The idea of receptive fields applies to local operations (i.e. convolution, pooling).A convolutional unit only depends on a local region (patch) of the input. That’s why we never refer to the RF on fully connected layers since each unit has access to all the input region. To this end, our aim is to provide you an insight into this concept, in order to understand and analyze how deep convolutional networks work with local operations work.
+[Understanding the receptive field of deep convolutional networks](https://theaisummer.com/receptive-field/)
+
+
+
+[im](https://theaisummer.com/static/490be17ee7f19b78003c3fdf5a6bbafc/83b75/receptive-field-in-convolutional-networks.png)
