@@ -108,14 +108,21 @@ The paper suggests the highest batch size value that can be fit into memory to b
 - [Pytprch LR Finder](https://github.com/davidtvs/pytorch-lr-finder)
 - [OneCycleLR](https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.OneCycleLR.html)
 
-## Fine Grained Image classification
+## Bi=-Linear Fine Grained Image classification
 Fine-grain visual classification (FGVC) refers to the task of distinguishing the categories of the same class. ... Fine-grained visual classification of species or objects of any category is a herculean task for human beings and usually requires extensive domain knowledge to identify the species or objects correctly.
 
 [Fine-Grained Image Classification (FGIC) with B-CNNs](https://wandb.ai/authors/bcnn/reports/Fine-Grained-Image-Classification-FGIC-with-B-CNNs---Vmlldzo0NDQ1Nzc)
 ![im](https://api.wandb.ai/files/authors/images/projects/209051/627087f0.png)
 
+![im](http://vis-www.cs.umass.edu/bcnn/docs/teaser-bcnn.png)
+
 ![im](https://www.researchgate.net/profile/Zhiwu-Lu-2/publication/318204948/figure/fig1/AS:512607066628096@1499226456148/Fine-grained-classification-vs-general-image-classification-Finegrained-classification.png)
 ![im](https://www.inf-cv.uni-jena.de/dbvmedia/de/Research/Fine_grained+Recognition/Goering13_FGC_1Col-0-.png)
+
+## Fine-Grained Image Classification for Crop Disease Based on Attention Mechanism
+![im](https://www.frontiersin.org/files/Articles/600854/fpls-11-600854-HTML/image_m/fpls-11-600854-g004.jpg)
+
+[Fine-Grained Image Classification for Crop Disease Based on Attention Mechanism](https://www.frontiersin.org/articles/10.3389/fpls.2020.600854/full)
 
 ## Receptive Field
 he Receptive Field (RF) is defined as the size of the region in the input that produces the feature[3]. Basically, it is a measure of association of an output feature (of any layer) to the input region (patch). The idea of receptive fields applies to local operations (i.e. convolution, pooling).A convolutional unit only depends on a local region (patch) of the input. That’s why we never refer to the RF on fully connected layers since each unit has access to all the input region. To this end, our aim is to provide you an insight into this concept, in order to understand and analyze how deep convolutional networks work with local operations work. **In essence, there are a plethora of ways and tricks to increase the RF, that can be summarized as follows**:
@@ -123,6 +130,7 @@ he Receptive Field (RF) is defined as the size of the region in the input that p
 - Add pooling layers or higher stride convolutions (sub-sampling)
 - Use dilated convolutions
 - Depth-wise convolutions
+Refer the article https://theaisummer.com/receptive-field/
 
 [Understanding the receptive field of deep convolutional networks](https://theaisummer.com/receptive-field/)
 
