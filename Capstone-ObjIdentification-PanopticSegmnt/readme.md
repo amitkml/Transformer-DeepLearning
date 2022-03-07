@@ -1,6 +1,6 @@
 # Understanding the architecture for Panoptic Segmentation
 
-
+![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Capstone-ObjIdentification-PanopticSegmnt/Resources/arch.png?raw=true)
 
 # Training a custom DeTr
 
