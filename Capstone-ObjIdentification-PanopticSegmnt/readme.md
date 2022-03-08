@@ -1,6 +1,10 @@
 # Understanding the architecture for Panoptic Segmentation
 
+**Object Identification**
+
 ![IM](https://github.com/facebookresearch/detr/raw/main/.github/DETR.png)
+
+**Panoptic Segmentation**
 
 ![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Capstone-ObjIdentification-PanopticSegmnt/Resources/arch.png?raw=true)
 
