@@ -47,3 +47,6 @@ Then these attention masks are cleaned using the convolution network that uses t
 All the above masks are combined by assigning each pixel to the map with highest logits using simple pixel wise argmax
 
 The output value is quite impressive where the network provides segmentation for each thing and stuff
+
+# References
+- https://github.com/facebookresearch/detr
