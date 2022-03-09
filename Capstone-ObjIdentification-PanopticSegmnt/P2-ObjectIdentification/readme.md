@@ -116,6 +116,7 @@ If you were to download the [COCO dataset from their website](https://cocodatase
 A dataset with mask labeling of three major types of concrete surface defects: crack, spalling and exposed rebar, was prepared for training and testing of the model. In this dataset, three open-domain datasets [1-3] are exploited and merged with a bridge inspection image dataset [4] from the Highways Department. To use the dataset, you need comply with the terms and conditions of using the images from the Highways Department, therefore please write a statement and e-mail it to:czhangbd@connect.ust.hk.
 
 ## References
+- [Finetune DETR](https://colab.research.google.com/github/woctezuma/finetune-detr/blob/master/finetune_detr.ipynb)
 - https://github.com/adilsammar/detr-fine
 - [Panoptic Segmentation Explained](https://hasty.ai/blog/panoptic-segmentation-explained)
 - [END-to-END object detection (Facebook AI)](https://ai.facebook.com/blog/end-to-end-object-detection-with-transformers)
