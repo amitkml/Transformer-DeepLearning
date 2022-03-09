@@ -8,3 +8,8 @@ For the COCO data format, first of all, there is only a single JSON file for all
 
 ## References
 - https://github.com/adilsammar/detr-fine
+- [Panoptic Segmentation Explained](https://hasty.ai/blog/panoptic-segmentation-explained)
+- [END-to-END object detection (Facebook AI)](https://ai.facebook.com/blog/end-to-end-object-detection-with-transformers)
+- [Attention is All you Need](https://ai.facebook.com/blog/end-to-end-object-detection-with-transformers)
+- [The Annotated DETR](https://amaarora.github.io/2021/07/26/annotateddetr.html)
+- [Facebook DETR: Transformers dive into the Object Detection World](https://towardsdatascience.com/facebook-detr-transformers-dive-into-the-object-detection-world-39d8422b53fa)
