@@ -1,5 +1,12 @@
 # Understanding the architecture for Panoptic Segmentation
 
+**Object Identification**
+
+![IM](https://github.com/facebookresearch/detr/raw/main/.github/DETR.png)
+
+What it is. Unlike traditional computer vision techniques, DETR approaches object detection as a direct set prediction problem. It consists of a set-based global loss, which forces unique predictions via bipartite matching, and a Transformer encoder-decoder architecture. Given a fixed small set of learned object queries, DETR reasons about the relations of the objects and the global image context to directly output the final set of predictions in parallel. Due to this parallel nature, DETR is very fast and efficient.
+**Panoptic Segmentation**
+
 ![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Capstone-ObjIdentification-PanopticSegmnt/Resources/arch.png?raw=true)
 
 # Training a custom DeTr
@@ -40,3 +47,6 @@ Then these attention masks are cleaned using the convolution network that uses t
 All the above masks are combined by assigning each pixel to the map with highest logits using simple pixel wise argmax
 
 The output value is quite impressive where the network provides segmentation for each thing and stuff
+
+# References
+- https://github.com/facebookresearch/detr
