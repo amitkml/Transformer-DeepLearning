@@ -10,7 +10,7 @@ Panoptic segmentation combines instance segmentation and semantic segmentation t
 
 Semantic segmentation refers to the task of classifying pixels in an image. It is done by predefining some target classes, e.g., “car”, “vegetation”, “road”, “sky”, “sidewalk”, or “background”, where “background” is in most cases a default class. Then, each pixel in the image is assigned to one of those classes. Here’s an example:
 
-![Input](./assets/input.png)
+![Input](../assets/input.png)
 
 ![Output](./assets/output.png)
 
