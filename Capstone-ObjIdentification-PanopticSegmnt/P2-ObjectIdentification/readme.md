@@ -117,6 +117,7 @@ A dataset with mask labeling of three major types of concrete surface defects: c
 The dataset can be downloaded from [concrete defect dataset](https://drive.google.com/file/d/1UbAnTFQWShtuHlGEvYYZ4TP8tL49IM8t/view?usp=sharing)
 
 ## References
+- [E2E Object Detection using DETR](https://www.kaggle.com/tanulsingh077/end-to-end-object-detection-with-transformers-detr/notebook)
 - [Finetune DETR](https://colab.research.google.com/github/woctezuma/finetune-detr/blob/master/finetune_detr.ipynb)
 - https://github.com/adilsammar/detr-fine
 - [Panoptic Segmentation Explained](https://hasty.ai/blog/panoptic-segmentation-explained)
