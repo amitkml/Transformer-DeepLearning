@@ -12,7 +12,7 @@ Semantic segmentation refers to the task of classifying pixels in an image. It i
 
 ![Input](../assets/input.png)
 
-![Output](./assets/output.png)
+![Output](../assets/output.png)
 
 As you can see in the previous example, every pixel in the image was colored depending on its class; hence, every pixel belonging to a car is masked in blue and the same goes for the sidewalk, the vegetation, road, and the sky.
 
@@ -24,13 +24,13 @@ When we do object detection, we aim to identify bounded regions of interest with
 
 It is very common to use bounding boxes to indicate the region within which we will find a given object. Here’s an example:
 
-![Boxes](./assets/boxes.png)
+![Boxes](../assets/boxes.png)
 
 In the previous image, there are three bounding boxes, one for each car on the image. In other words, we are detecting cars, and we can now say how many of them are in the image.
 
 Now, not all the pixels inside those bounding boxes correspond to a car. Some of those pixels are part of the road; others of the sidewalk or the vegetation. If we want to obtain richer information from object detection, we can identify what pixels specifically belong to the same class assigned to the bounding box. That is what is called instance segmentation. Strictly speaking, we perform pixel-wise segmentation for every instance (bounding box in our case) we detected. This is what it looks like:
 
-![Instance](./assets/instance.png)
+![Instance](../assets/instance.png)
 
 So we went from a rough detection with a bounding box to a more accurate detection in which we can also identify instances and therefore count the number of objects of a given class. In addition to that, we know exactly what pixels belong to an object.
 
@@ -42,6 +42,6 @@ As mentioned in the introduction of this post, panoptic segmentation is a combin
 
 Following our example, panoptic segmentation would look like this:
 
-![Panoptic](./assets/panoptic.png)
+![Panoptic](../assets/panoptic.png)
 
 We have now managed to get a representation of the original image in such a way that it provides rich information about both semantic and instance classes altogether.
