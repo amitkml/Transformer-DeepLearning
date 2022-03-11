@@ -120,7 +120,9 @@ The dataset can be downloaded from [concrete defect dataset](https://drive.googl
 
 ## 3. <a name='Generating Bounding Boxes from Mask'></a>Generating Bounding Boxes from Mask
 
-Our input dataset 
+Our input dataset has masks for each of the images and some of them are
+
+![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Capstone-ObjIdentification-PanopticSegmnt/assets/00001rebar.jpg?raw=true)
 
 
 
