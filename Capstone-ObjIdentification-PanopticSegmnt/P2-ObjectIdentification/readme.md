@@ -120,7 +120,17 @@ The dataset can be downloaded from [concrete defect dataset](https://drive.googl
 
 ## 3. <a name='Generating Bounding Boxes from Mask'></a>Generating Bounding Boxes from Mask
 
-Our input dataset has masks for each of the images and some of them are
+Our input dataset has masks for each of the images and some of them.
+
+I have shown here a sample input image **00001.jpg**
+
+![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Capstone-ObjIdentification-PanopticSegmnt/assets/00001.jpg?raw=true)
+
+and we have following masks for the above image. Mask file name is 00001rebar.jpg. So my understanding is that object name here is rebar which is being shown as masked one.
+
+
+
+
 
 ![im](https://github.com/amitkml/Transformer-DeepLearning/blob/main/Capstone-ObjIdentification-PanopticSegmnt/assets/00001rebar.jpg?raw=true)
 
