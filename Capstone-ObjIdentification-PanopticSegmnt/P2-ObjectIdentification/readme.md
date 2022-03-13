@@ -109,16 +109,44 @@ If you were to download the [COCO dataset from their website](https://cocodatase
 
 * **Annotations** — List of annotations each with a unique ID and the image ID it relates to. This is where you will store the bounding box information in our case or segmentation/keypoint/other label information for other tasks. This also stores bounding box area and iscrowd indicating a large bounding box surrounding multiple objects of the same category which is used for evaluation.
 
-##  2. <a name='CreatingaCustomCOCOformatdataset'></a>Creating a Custom COCO format dataset
+2. ## <a name='Different annotations formats'></a>Different annotations formats
 
-###  2.1. <a name='Background'></a>Background
+Bounding boxes are rectangles that mark objects on an image. There are multiple formats of bounding boxes annotations. Each format uses its specific representation of bouning boxes coordinates. Albumentations supports four formats: `pascal_voc`, `albumentations`, `coco`, and `yolo` .
+
+Let's take a look at each of those formats and how they represent coordinates of bounding boxes.
+
+As an example, we will use an image from the dataset named [Common Objects in Context](http://cocodataset.org/). It contains one bounding box that marks a cat. The image width is 640 pixels, and its height is 480 pixels. The width of the bounding box is 322 pixels, and its height is 117 pixels.
+
+The bounding box has the following `(x, y)` coordinates of its corners: top-left is `(x_min, y_min)` or `(98px, 345px)`, top-right is `(x_max, y_min)` or `(420px, 345px)`, bottom-left is `(x_min, y_max)` or `(98px, 462px)`, bottom-right is `(x_max, y_max)` or `(420px, 462px)`. As you see, coordinates of the bounding box's corners are calculated with respect to the top-left corner of the image which has `(x, y)` coordinates `(0, 0)`.
+
+![im](https://albumentations.ai/docs/images/getting_started/augmenting_bboxes/bbox_example.jpg)
+
+### 2.1. <a name='pascal_voc'></a>pascal_voc
+
+`pascal_voc` is a format used by the [Pascal VOC dataset](http://host.robots.ox.ac.uk/pascal/VOC/). Coordinates of a bounding box are encoded with four values in pixels: `[x_min, y_min, x_max, y_max]`. `x_min` and `y_min` are coordinates of the top-left corner of the bounding box. `x_max` and `y_max` are coordinates of bottom-right corner of the bounding box.
+
+Coordinates of the example bounding box in this format are `[98, 345, 420, 462]`.
+
+
+
+### 2.2. <a name='coco'></a>coco
+
+`coco` is a format used by the [Common Objects in Context COCOCOCO](http://cocodataset.org/) dataset.
+
+In `coco`, a bounding box is defined by four values in pixels `[x_min, y_min, width, height]`. They are coordinates of the top-left corner along with the width and height of the bounding box.
+
+Coordinates of the example bounding box in this format are `[98, 345, 322, 117]`.
+
+##  3. <a name='CreatingaCustomCOCOformatdataset'></a>Creating a Custom COCO format dataset
+
+###  3.1. <a name='Background'></a>Background
 
 A dataset with mask labeling of three major types of concrete surface defects: crack, spalling and exposed rebar, was prepared for training and testing of the model. In this dataset, three open-domain datasets [1-3] are exploited and merged with a bridge inspection image dataset [4] from the Highways Department. To use the dataset, you need comply with the terms and conditions of using the images from the Highways Department, therefore please write a statement and e-mail it to:czhangbd@connect.ust.hk.
 The dataset can be downloaded from [concrete defect dataset](https://drive.google.com/file/d/1UbAnTFQWShtuHlGEvYYZ4TP8tL49IM8t/view?usp=sharing)
 
 
 
-## 3. <a name='Generating Bounding Boxes from Mask'></a>Generating Bounding Boxes from Mask
+## 4. <a name='Generating Bounding Boxes from Mask'></a>Generating Bounding Boxes from Mask
 
 Our input dataset has masks for each of the images and some of them.
 
