@@ -121,6 +121,8 @@ The bounding box has the following `(x, y)` coordinates of its corners: top-left
 
 ![im](https://albumentations.ai/docs/images/getting_started/augmenting_bboxes/bbox_example.jpg)
 
+![im](https://albumentations.ai/docs/images/getting_started/augmenting_bboxes/bbox_formats.jpg)
+
 ### 2.1. <a name='pascal_voc'></a>pascal_voc
 
 `pascal_voc` is a format used by the [Pascal VOC dataset](http://host.robots.ox.ac.uk/pascal/VOC/). Coordinates of a bounding box are encoded with four values in pixels: `[x_min, y_min, x_max, y_max]`. `x_min` and `y_min` are coordinates of the top-left corner of the bounding box. `x_max` and `y_max` are coordinates of bottom-right corner of the bounding box.
@@ -167,6 +169,7 @@ and we have following masks for the above image. Mask file name is 00001rebar.jp
 ## References
 
 - [E2E Object Detection using DETR](https://www.kaggle.com/tanulsingh077/end-to-end-object-detection-with-transformers-detr/notebook)
+- [Bounding boxes augmentation for object detection](https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/#bounding-boxes-augmentation-for-object-detection)
 - [Finetune DETR](https://colab.research.google.com/github/woctezuma/finetune-detr/blob/master/finetune_detr.ipynb)
 - https://github.com/adilsammar/detr-fine
 - [Panoptic Segmentation Explained](https://hasty.ai/blog/panoptic-segmentation-explained)
@@ -174,3 +177,4 @@ and we have following masks for the above image. Mask file name is 00001rebar.jp
 - [Attention is All you Need](https://ai.facebook.com/blog/end-to-end-object-detection-with-transformers)
 - [The Annotated DETR](https://amaarora.github.io/2021/07/26/annotateddetr.html)
 - [Facebook DETR: Transformers dive into the Object Detection World](https://towardsdatascience.com/facebook-detr-transformers-dive-into-the-object-detection-world-39d8422b53fa)
+

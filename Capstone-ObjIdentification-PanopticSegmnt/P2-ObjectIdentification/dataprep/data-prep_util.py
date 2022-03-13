@@ -145,3 +145,22 @@ def write_pascal_xml_format(image, mask, mask_bb, image_path, mask_path, mask_bb
     ET.SubElement(bndbox, 'ymin').text = str(mask_bb[1])
     ET.SubElement(bndbox, 'xmax').text = str(mask_bb[2])
     ET.SubElement(bndbox, 'ymax').text = str(mask_bb[3])
+    
+def check_if_string_present_in_filename(filename, string):
+    """
+    Check if string is present in filename
+    """
+    return string in filename
+
+def call_function_multiple_times(function, list_of_arguments, n):
+    """
+    Call function multiple times
+    """
+    for i in range(n):
+        function(list_of_arguments[i])
+
+def strip_out_string_from_filename(filename, string):
+    """
+    Strip out string from filename
+    """
+    return filename.split(string)[0]
