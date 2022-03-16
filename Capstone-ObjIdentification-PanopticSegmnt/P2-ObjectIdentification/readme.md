@@ -1,5 +1,3 @@
-# Input Data Preparation
-
 # Train DETR for object detection on custom data
 
 In Computer Vision, object detection is a task where we want our model to distinguish the foreground objects from the background and predict the locations and the categories for the objects present in the image.
@@ -167,6 +165,8 @@ and we have following masks for the above image. Mask file name is 00001rebar.jp
 
 
 ## References
+
+- [Training DETR on Your Own Dataset]([https://towardsdatascience.com/training-detr-on-your-own-dataset-bcee0be05522)
 
 - [E2E Object Detection using DETR](https://www.kaggle.com/tanulsingh077/end-to-end-object-detection-with-transformers-detr/notebook)
 - [Bounding boxes augmentation for object detection](https://albumentations.ai/docs/getting_started/bounding_boxes_augmentation/#bounding-boxes-augmentation-for-object-detection)

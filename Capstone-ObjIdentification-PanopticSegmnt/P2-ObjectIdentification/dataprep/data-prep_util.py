@@ -164,3 +164,26 @@ def strip_out_string_from_filename(filename, string):
     Strip out string from filename
     """
     return filename.split(string)[0]
+
+def remove_matching_string_from_file_name(filename, string):
+    """
+    Remove matching string from file name
+    """
+    return filename.replace(string, '')
+
+def remove_matching_string_from_file_name_in_directory(directory, string):
+    """
+    Remove matching string from file name in directory
+    """
+    for f in os.listdir(directory):
+        if check_if_string_present_in_filename(f, string):
+            os.remove(os.path.join(directory, f))
+            
+def remove_matching_string_within_list_from_file_name_in_directory(directory, list_of_strings):
+    """
+    Remove matching string within list from file name in directory
+    """
+    for f in os.listdir(directory):
+        for string in list_of_strings:
+            if check_if_string_present_in_filename(f, string):
+                os.remove(os.path.join(directory, f))
