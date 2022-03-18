@@ -187,3 +187,15 @@ def remove_matching_string_within_list_from_file_name_in_directory(directory, li
         for string in list_of_strings:
             if check_if_string_present_in_filename(f, string):
                 os.remove(os.path.join(directory, f))
+
+def split_images_into_training_validation_sets(directory, training_directory, validation_directory, training_validation_split_percentage):
+    """
+    Split images into training and validation sets
+    """
+    training_validation_split_percentage = training_validation_split_percentage / 100
+    for f in os.listdir(directory):
+        if check_if_string_present_in_filename(f, 'mask'):
+            if random.random() < training_validation_split_percentage:
+                shutil.move(os.path.join(directory, f), os.path.join(training_directory, f))
+            else:
+                shutil.move(os.path.join(directory, f), os.path.join(validation_directory, f))      
