@@ -26,7 +26,10 @@ This repo contains all the assignments from the course called EVA conducted by t
 - [Fullstack Deep Learning](https://fullstackdeeplearning.com/)
 - [Taking FastAI to Production](https://community.wandb.ai/t/taking-fastai-to-production/1705)
 
+# Explaiable AI
+- [Explianble AI by Lime](https://github.com/marcotcr/lime)
 
+# Labelling
 
 # Transformer-DeepLearning
 
